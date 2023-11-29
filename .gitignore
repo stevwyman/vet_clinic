@@ -170,4 +170,4 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 media
-vet/vet/settings_local.py
+settings_local.py

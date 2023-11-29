@@ -193,4 +193,7 @@ LOGGING = {
 MEDIA_URL = "/client/media/"
 MEDIA_ROOT = "/data/vet_client/media"
 
-from .settings_local import *
+try:
+    from .settings_local import *
+except ModuleNotFoundError:
+    pass
