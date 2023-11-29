@@ -1,0 +1,75 @@
+{% extends "client/layout.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block head-section %}
+{% trans "visits" %}
+{% endblock %}
+
+{% block row-section %}
+<div class="col">
+    <div class="text-end">
+        <form method="GET">
+            <input type="text" name="q" value="{{ request.GET.q }}"">
+            <input class="btn btn-sm btn-outline-success" type="submit" value="{% trans 'search' %}">
+          </form>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{% trans "date" %}</th>
+                    <th>{% trans "pet" %}</th>
+                    <th>{% trans "owner" %}</th>
+                    <th>{% trans "price" %}</th>
+                    <th class="small">MWSt<br>19%</th>
+                    <th class="small">MWSt<br>7%</th>
+                    <th>{% trans "balance" %}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for visit in page_obj %}
+                {% url 'visit-detail' visit.id as visit_url %}
+                <tr onclick="window.location='{{ visit_url }}'" style="cursor:hand;cursor:pointer">
+                    <td>{{ visit.timestamp|date:"d.m.Y" }}</td>
+                    <td>{{ visit.case.pet.call_name }}</td>
+                    <td>{{ visit.case.pet.owner.firstname }} {{ visit.case.pet.owner.lastname }}</td>
+                    <td>€ {{ visit.price }}</td>
+                    <td class="small">€ {{ visit.included_full_tax }}</td>
+                    <td class="small">€ {{ visit.included_reduced_tax }}</td>
+                    <td>{{ visit.balance }}</td>
+                    <td>{{ visit.payment.get_payment_type_display }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; {% trans "first" %}</a>
+                <a href="?page={{ page_obj.previous_page_number }}">{% trans "previous" %}</a>
+            {% endif %}
+    
+            <span class="current">
+                {% trans "page" %} {{ page_obj.number }} {% trans "of" %} {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">{% trans "next" %}</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">{% trans "last" %} &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    <div>
+        <p><a class="btn btn-outline-success float-start" href="{% url 'owner-create' %}">+ {% trans "owner" %}</a></p>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

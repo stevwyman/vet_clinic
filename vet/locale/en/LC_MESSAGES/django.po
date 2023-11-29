@@ -1,0 +1,721 @@
+#: client/forms.py:8 client/templates/client/pet_detail.html:30
+#: client/templates/client/visit_list.html:22
+msgid "date"
+msgstr ""
+
+#: client/forms.py:9 client/models.py:639 client/models.py:687
+#: client/pdf_invoice.py:160 client/pdf_invoice.py:164
+msgid "invoice number"
+msgstr ""
+
+#: client/forms.py:10
+msgid "letter address"
+msgstr ""
+
+#: client/forms.py:11
+msgid "text"
+msgstr ""
+
+#: client/models.py:21 client/models.py:712
+#: client/templates/client/intolerance_list.html:22
+#: client/templates/client/owner_detail.html:19
+#: client/templates/client/owner_list.html:22
+#: client/templates/client/race_list.html:22
+#: client/templates/client/species_list.html:22
+#: client/templates/client/template_list.html:22
+#: client/templates/client/waiting_room.html:22
+msgid "name"
+msgstr ""
+
+#: client/models.py:24
+msgid "external identification"
+msgstr ""
+
+#: client/models.py:88
+msgid "firstname"
+msgstr ""
+
+#: client/models.py:90
+msgid "lastname"
+msgstr ""
+
+#: client/models.py:93
+msgid "postal street number"
+msgstr ""
+
+#: client/models.py:97
+msgid "postal zipcode"
+msgstr ""
+
+#: client/models.py:100
+msgid "postal city"
+msgstr ""
+
+#: client/models.py:105
+msgid "billing street number"
+msgstr ""
+
+#: client/models.py:108
+msgid "billing zipcode"
+msgstr ""
+
+#: client/models.py:111
+msgid "billing city"
+msgstr ""
+
+#: client/models.py:115
+msgid "mobile"
+msgstr ""
+
+#: client/models.py:116
+msgid "fixed"
+msgstr ""
+
+#: client/models.py:118
+msgid "email"
+msgstr ""
+
+#: client/models.py:121 client/models.py:255
+msgid "note"
+msgstr ""
+
+#: client/models.py:126
+msgid "dsgv accepted"
+msgstr ""
+
+#: client/models.py:128
+msgid "confirmed"
+msgstr ""
+
+#: client/models.py:164 client/templates/client/layout.html:55
+#: client/templates/client/race_list.html:24
+#: client/templates/client/species_list.html:7
+#: client/templates/client/species_list.html:56
+#: client/templates/two_factor/_base.html:52
+msgid "species"
+msgstr ""
+
+#: client/models.py:167
+msgid "species translated"
+msgstr ""
+
+#: client/models.py:171 client/models.py:190 client/models.py:316
+#: client/models.py:489 client/models.py:715
+#: client/templates/client/consumablestype_list.html:23
+#: client/templates/client/medicationtype_list.html:23
+#: client/templates/client/race_list.html:23
+#: client/templates/client/species_list.html:23
+#: client/templates/client/template_list.html:23
+#: client/templates/client/treatmenttype_list.html:23
+msgid "description"
+msgstr ""
+
+#: client/models.py:183 client/templates/client/layout.html:56
+#: client/templates/client/race_list.html:7
+#: client/templates/client/race_list.html:58
+#: client/templates/two_factor/_base.html:53
+msgid "race"
+msgstr ""
+
+#: client/models.py:186
+msgid "race translated"
+msgstr ""
+
+#: client/models.py:227
+msgid "call name"
+msgstr ""
+
+#: client/models.py:230
+msgid "birth name"
+msgstr ""
+
+#: client/models.py:232 client/templates/client/owner_detail.html:21
+msgid "birth date"
+msgstr ""
+
+#: client/models.py:233
+msgid "deceased date"
+msgstr ""
+
+#: client/models.py:235
+msgid "male"
+msgstr ""
+
+#: client/models.py:235
+msgid "female"
+msgstr ""
+
+#: client/models.py:237
+msgid "sex"
+msgstr ""
+
+#: client/models.py:245 client/templates/client/case_detail.html:116
+#: client/templates/client/pet_detail.html:166
+#: client/templates/client/visit_detail.html:213
+msgid "castrated"
+msgstr ""
+
+#: client/models.py:246 client/templates/client/case_detail.html:119
+#: client/templates/client/pet_detail.html:169
+#: client/templates/client/visit_detail.html:216
+msgid "sterilized"
+msgstr ""
+
+#: client/models.py:248 client/templates/client/case_detail.html:110
+#: client/templates/client/pet_detail.html:160
+#: client/templates/client/visit_detail.html:207
+msgid "chip id"
+msgstr ""
+
+#: client/models.py:253 client/templates/client/case_detail.html:131
+#: client/templates/client/intolerance_list.html:7
+#: client/templates/client/intolerance_list.html:52
+#: client/templates/client/layout.html:54
+#: client/templates/client/pet_detail.html:181
+#: client/templates/client/visit_detail.html:228
+#: client/templates/two_factor/_base.html:51
+msgid "intolerance"
+msgstr ""
+
+#: client/models.py:260 client/templates/client/case_detail.html:113
+#: client/templates/client/pet_detail.html:163
+#: client/templates/client/visit_detail.html:210
+msgid "insurance"
+msgstr ""
+
+#: client/models.py:301
+msgid "no tax"
+msgstr ""
+
+#: client/models.py:313 client/templates/client/consumablestype_list.html:22
+#: client/templates/client/medicationtype_list.html:22
+#: client/templates/client/treatmenttype_list.html:22
+msgid "number"
+msgstr ""
+
+#: client/models.py:318 client/models.py:370
+msgid "ppu"
+msgstr ""
+
+#: client/models.py:319
+msgid "current"
+msgstr ""
+
+#: client/models.py:362 client/templates/client/template_detail.html:24
+msgid "factor"
+msgstr ""
+
+#: client/models.py:373 client/models.py:782
+msgid "comment"
+msgstr ""
+
+#: client/models.py:376
+msgid "overwrite gross price"
+msgstr ""
+
+#: client/models.py:384
+msgid "overwrite net price"
+msgstr ""
+
+#: client/models.py:455 client/models.py:471
+#: client/templates/client/template_detail.html:40
+#: client/templates/client/template_detail.html:56
+msgid "quantity"
+msgstr ""
+
+#: client/models.py:486 client/models.py:540
+msgid "title"
+msgstr ""
+
+#: client/models.py:531
+msgid "weight"
+msgstr ""
+
+#: client/models.py:534
+msgid "size"
+msgstr ""
+
+#: client/models.py:537
+msgid "temperature"
+msgstr ""
+
+#: client/models.py:542
+msgid "anamneses"
+msgstr ""
+
+#: client/models.py:643
+msgid "amount"
+msgstr ""
+
+#: client/models.py:656
+msgid "cash"
+msgstr ""
+
+#: client/models.py:657
+msgid "card"
+msgstr ""
+
+#: client/models.py:658 client/templates/client/visit_detail.html:107
+msgid "invoice"
+msgstr ""
+
+#: client/models.py:662
+msgid "payment type"
+msgstr ""
+
+#: client/pdf_invoice.py:240
+msgid "greet"
+msgstr ""
+
+#: client/templates/client/case_detail.html:8
+#: client/templates/client/case_detail.html:27
+#: client/templates/client/pet_detail.html:22
+#: client/templates/client/pet_detail.html:31
+msgid "case"
+msgstr ""
+
+#: client/templates/client/case_detail.html:37
+#: client/templates/client/case_detail.html:55
+#: client/templates/client/case_detail.html:142
+#: client/templates/client/consumablestype_list.html:34
+#: client/templates/client/medicationtype_list.html:34
+#: client/templates/client/owner_detail.html:35
+#: client/templates/client/owner_detail.html:79
+#: client/templates/client/owner_list.html:35
+#: client/templates/client/pet_detail.html:58
+#: client/templates/client/pet_detail.html:195
+#: client/templates/client/race_list.html:34
+#: client/templates/client/species_list.html:32
+#: client/templates/client/template_detail.html:89
+#: client/templates/client/template_list.html:34
+#: client/templates/client/treatmenttype_list.html:34
+#: client/templates/client/visit_detail.html:48
+#: client/templates/client/visit_detail.html:239
+msgid "update"
+msgstr ""
+
+#: client/templates/client/case_detail.html:45
+#: client/templates/client/layout.html:40
+#: client/templates/client/pet_detail.html:79
+#: client/templates/client/visit_list.html:7
+#: client/templates/two_factor/_base.html:37
+msgid "visits"
+msgstr ""
+
+#: client/templates/client/case_detail.html:54
+#: client/templates/client/owner_detail.html:34
+#: client/templates/client/owner_list.html:34
+#: client/templates/client/pet_detail.html:51
+#: client/templates/client/visit_detail.html:139
+msgid "balance due"
+msgstr ""
+
+#: client/templates/client/case_detail.html:54
+#: client/templates/client/owner_detail.html:34
+#: client/templates/client/owner_list.html:34
+#: client/templates/client/pet_detail.html:51
+#: client/templates/client/visit_detail.html:139
+msgid "balance plus"
+msgstr ""
+
+#: client/templates/client/case_detail.html:64
+#: client/templates/client/pet_detail.html:192
+#: client/templates/client/visit_detail.html:160
+msgid "document"
+msgstr ""
+
+#: client/templates/client/case_detail.html:67
+#: client/templates/client/visit_detail.html:8
+#: client/templates/client/visit_detail.html:30
+msgid "visit"
+msgstr ""
+
+#: client/templates/client/case_detail.html:72
+#: client/templates/client/pet_detail.html:68
+#: client/templates/client/pet_detail.html:200
+#: client/templates/client/visit_detail.html:169
+msgid "documents"
+msgstr ""
+
+#: client/templates/client/case_detail.html:81
+#: client/templates/client/document_generic_confirm_delete.html:17
+#: client/templates/client/pet_detail.html:90
+#: client/templates/client/pet_detail.html:107
+#: client/templates/client/pet_detail.html:127
+#: client/templates/client/visit_detail.html:61
+#: client/templates/client/visit_detail.html:78
+#: client/templates/client/visit_detail.html:95
+#: client/templates/client/visit_detail.html:178
+#: client/templates/client/visit_generic_confirm_delete.html:17
+#: client/templates/client/waiting_room.html:33
+msgid "delete"
+msgstr ""
+
+#: client/templates/client/case_detail.html:148
+msgid "other cases"
+msgstr ""
+
+#: client/templates/client/case_update_form.html:10
+msgid "new case"
+msgstr ""
+
+#: client/templates/client/case_update_form.html:21
+#: client/templates/client/clinic_update_form.html:17
+#: client/templates/client/consumablestype_update_form.html:21
+#: client/templates/client/document_update_form.html:21
+#: client/templates/client/intolerance_update_form.html:21
+#: client/templates/client/invoice_prepare.html:29
+#: client/templates/client/medicationtype_update_form.html:21
+#: client/templates/client/owner_update_form.html:21
+#: client/templates/client/payment_update_form.html:17
+#: client/templates/client/pet_update_form.html:22
+#: client/templates/client/race_update_form.html:21
+#: client/templates/client/species_update_form.html:21
+#: client/templates/client/template_choose_form.html:29
+#: client/templates/client/template_update_form.html:21
+#: client/templates/client/templateconsumable_update_form.html:21
+#: client/templates/client/templatemedication_update_form.html:21
+#: client/templates/client/templatetreatment_update_form.html:21
+#: client/templates/client/treatmenttype_update_form.html:21
+#: client/templates/client/visit_update_form.html:21
+#: client/templates/client/visitconsumable_update_form.html:21
+#: client/templates/client/visitmedication_update_form.html:21
+#: client/templates/client/visittreatment_update_form.html:21
+#: client/templates/client/waiting_room_register.html:12
+msgid "save"
+msgstr ""
+
+#: client/templates/client/consumablestype_list.html:7
+#: client/templates/client/layout.html:53
+#: client/templates/client/template_detail.html:48
+#: client/templates/client/visit_detail.html:91
+#: client/templates/two_factor/_base.html:50
+msgid "consumables"
+msgstr ""
+
+#: client/templates/client/consumablestype_list.html:15
+#: client/templates/client/intolerance_list.html:15
+#: client/templates/client/medicationtype_list.html:15
+#: client/templates/client/owner_list.html:15
+#: client/templates/client/race_list.html:15
+#: client/templates/client/species_list.html:15
+#: client/templates/client/template_list.html:15
+#: client/templates/client/treatmenttype_list.html:15
+#: client/templates/client/visit_list.html:15
+#: client/templates/client/waiting_room.html:15
+msgid "search"
+msgstr ""
+
+#: client/templates/client/consumablestype_list.html:24
+#: client/templates/client/medicationtype_list.html:24
+#: client/templates/client/template_list.html:24
+#: client/templates/client/treatmenttype_list.html:24
+#: client/templates/client/visit_list.html:25
+msgid "price"
+msgstr ""
+
+#: client/templates/client/consumablestype_list.html:43
+#: client/templates/client/intolerance_list.html:37
+#: client/templates/client/medicationtype_list.html:43
+#: client/templates/client/owner_list.html:44
+#: client/templates/client/race_list.html:43
+#: client/templates/client/species_list.html:41
+#: client/templates/client/template_list.html:43
+#: client/templates/client/treatmenttype_list.html:43
+#: client/templates/client/visit_list.html:52
+#: client/templates/client/waiting_room.html:42
+msgid "first"
+msgstr ""
+
+#: client/templates/client/consumablestype_list.html:44
+#: client/templates/client/intolerance_list.html:38
+#: client/templates/client/medicationtype_list.html:44
+#: client/templates/client/owner_list.html:45
+#: client/templates/client/race_list.html:44
+#: client/templates/client/species_list.html:42
+#: client/templates/client/template_list.html:44
+#: client/templates/client/treatmenttype_list.html:44
+#: client/templates/client/visit_list.html:53
+#: client/templates/client/waiting_room.html:43
+msgid "previous"
+msgstr ""
+
+#: client/templates/client/consumablestype_list.html:48
+#: client/templates/client/intolerance_list.html:42
+#: client/templates/client/medicationtype_list.html:48
+#: client/templates/client/owner_list.html:49
+#: client/templates/client/race_list.html:48
+#: client/templates/client/species_list.html:46
+#: client/templates/client/template_list.html:48
+#: client/templates/client/treatmenttype_list.html:48
+#: client/templates/client/visit_list.html:57
+#: client/templates/client/waiting_room.html:47
+msgid "page"
+msgstr ""
+
+#: client/templates/client/consumablestype_list.html:48
+#: client/templates/client/intolerance_list.html:42
+#: client/templates/client/medicationtype_list.html:48
+#: client/templates/client/owner_list.html:49
+#: client/templates/client/race_list.html:48
+#: client/templates/client/species_list.html:46
+#: client/templates/client/template_list.html:48
+#: client/templates/client/treatmenttype_list.html:48
+#: client/templates/client/visit_list.html:57
+#: client/templates/client/waiting_room.html:47
+msgid "of"
+msgstr ""
+
+#: client/templates/client/consumablestype_list.html:52
+#: client/templates/client/intolerance_list.html:46
+#: client/templates/client/medicationtype_list.html:52
+#: client/templates/client/owner_list.html:53
+#: client/templates/client/race_list.html:52
+#: client/templates/client/species_list.html:50
+#: client/templates/client/template_list.html:52
+#: client/templates/client/treatmenttype_list.html:52
+#: client/templates/client/visit_list.html:61
+#: client/templates/client/waiting_room.html:51
+msgid "next"
+msgstr ""
+
+#: client/templates/client/consumablestype_list.html:53
+#: client/templates/client/intolerance_list.html:47
+#: client/templates/client/medicationtype_list.html:53
+#: client/templates/client/owner_list.html:54
+#: client/templates/client/race_list.html:53
+#: client/templates/client/species_list.html:51
+#: client/templates/client/template_list.html:53
+#: client/templates/client/treatmenttype_list.html:53
+#: client/templates/client/visit_list.html:62
+#: client/templates/client/waiting_room.html:52
+msgid "last"
+msgstr ""
+
+#: client/templates/client/consumablestype_list.html:58
+#: client/templates/client/template_detail.html:76
+#: client/templates/client/visit_detail.html:152
+msgid "consumable"
+msgstr ""
+
+#: client/templates/client/consumablestype_update_form.html:10
+#: client/templates/client/templateconsumable_update_form.html:10
+msgid "new consumable"
+msgstr ""
+
+#: client/templates/client/document_generic_confirm_delete.html:7
+#: client/templates/client/visit_generic_confirm_delete.html:7
+msgid "confirm"
+msgstr ""
+
+#: client/templates/client/document_generic_confirm_delete.html:15
+#: client/templates/client/visit_generic_confirm_delete.html:15
+msgid "Are you sure you want to delete"
+msgstr ""
+
+#: client/templates/client/document_update_form.html:10
+msgid "new document"
+msgstr ""
+
+#: client/templates/client/index.html:13 client/templates/client/start.html:13
+#: client/templates/two_factor/_base.html:81
+msgid "register"
+msgstr ""
+
+#: client/templates/client/intolerance_update_form.html:10
+msgid "new intolerance"
+msgstr ""
+
+#: client/templates/client/invoice_prepare.html:8
+msgid "generate invoice"
+msgstr ""
+
+#: client/templates/client/layout.html:34
+#: client/templates/client/waiting_room.html:7
+msgid "waiting room"
+msgstr ""
+
+#: client/templates/client/layout.html:37
+#: client/templates/client/owner_list.html:7
+#: client/templates/two_factor/_base.html:34
+msgid "owners"
+msgstr ""
+
+#: client/templates/client/layout.html:43
+#: client/templates/two_factor/_base.html:40
+msgid "management"
+msgstr ""
+
+#: client/templates/client/layout.html:47
+#: client/templates/client/template_list.html:7
+#: client/templates/two_factor/_base.html:44
+msgid "templates"
+msgstr ""
+
+#: client/templates/client/layout.html:51
+#: client/templates/client/template_detail.html:16
+#: client/templates/client/treatmenttype_list.html:7
+#: client/templates/client/visit_detail.html:57
+#: client/templates/two_factor/_base.html:48
+msgid "treatments"
+msgstr ""
+
+#: client/templates/client/layout.html:52
+#: client/templates/client/medicationtype_list.html:7
+#: client/templates/client/template_detail.html:32
+#: client/templates/client/visit_detail.html:74
+#: client/templates/two_factor/_base.html:49
+msgid "medications"
+msgstr ""
+
+#: client/templates/client/layout.html:68
+#: client/templates/two_factor/_base.html:64
+msgid "Account Security"
+msgstr ""
+
+#: client/templates/client/layout.html:71
+#: client/templates/two_factor/_base.html:67
+msgid "log out"
+msgstr ""
+
+#: client/templates/client/layout.html:74
+msgid "clinic"
+msgstr ""
+
+#: client/templates/client/layout.html:83
+#: client/templates/two_factor/_base.html:76
+msgid "log in"
+msgstr ""
+
+#: client/templates/client/medicationtype_list.html:58
+#: client/templates/client/template_detail.html:70
+#: client/templates/client/visit_detail.html:149
+msgid "medication"
+msgstr ""
+
+#: client/templates/client/medicationtype_update_form.html:10
+#: client/templates/client/templatemedication_update_form.html:10
+#: client/templates/client/visitmedication_update_form.html:10
+msgid "new medication"
+msgstr ""
+
+#: client/templates/client/owner_detail.html:22
+#: client/templates/client/owner_list.html:24
+msgid "last visit"
+msgstr ""
+
+#: client/templates/client/owner_detail.html:42
+#: client/templates/client/visit_list.html:23
+msgid "pet"
+msgstr ""
+
+#: client/templates/client/owner_list.html:23
+#: client/templates/client/waiting_room.html:23
+msgid "pets"
+msgstr ""
+
+#: client/templates/client/owner_list.html:59
+#: client/templates/client/visit_list.html:24
+#: client/templates/client/visit_list.html:67
+msgid "owner"
+msgstr ""
+
+#: client/templates/client/owner_update_form.html:10
+msgid "new owner"
+msgstr ""
+
+#: client/templates/client/payment_update_form.html:7
+#: client/templates/client/visit_detail.html:124
+#: client/templates/client/visit_detail.html:163
+msgid "payment"
+msgstr ""
+
+#: client/templates/client/payment_update_form.html:25
+msgid "payment amount due"
+msgstr ""
+
+#: client/templates/client/pet_detail.html:7
+msgid "overview"
+msgstr ""
+
+#: client/templates/client/pet_detail.html:76
+msgid "cases"
+msgstr ""
+
+#: client/templates/client/pet_update_form.html:10
+msgid "new pet"
+msgstr ""
+
+#: client/templates/client/pet_update_form.html:27
+#: client/templates/client/species_update_form.html:10
+msgid "new species"
+msgstr ""
+
+#: client/templates/client/pet_update_form.html:28
+#: client/templates/client/race_update_form.html:10
+msgid "new race"
+msgstr ""
+
+#: client/templates/client/template_choose_form.html:7
+msgid "choose template to add"
+msgstr ""
+
+#: client/templates/client/template_choose_form.html:17
+#: client/templates/client/template_list.html:58
+#: client/templates/client/visit_detail.html:157
+msgid "template"
+msgstr ""
+
+#: client/templates/client/template_detail.html:24
+#: client/templates/client/template_detail.html:40
+#: client/templates/client/template_detail.html:56
+msgid "tax"
+msgstr ""
+
+#: client/templates/client/template_detail.html:73
+#: client/templates/client/treatmenttype_list.html:58
+#: client/templates/client/visit_detail.html:146
+msgid "treatment"
+msgstr ""
+
+#: client/templates/client/template_update_form.html:10
+msgid "new template"
+msgstr ""
+
+#: client/templates/client/templatetreatment_update_form.html:10
+#: client/templates/client/treatmenttype_update_form.html:10
+#: client/templates/client/visitconsumable_update_form.html:10
+#: client/templates/client/visittreatment_update_form.html:10
+msgid "new treatment"
+msgstr ""
+
+#: client/templates/client/treatmenttype_update_form.html:25
+msgid "note for new/update treatment type"
+msgstr ""
+
+#: client/templates/client/visit_detail.html:66
+#: client/templates/client/visit_detail.html:83
+#: client/templates/client/visit_detail.html:100
+#: client/templates/client/visittreatment_update_form.html:35
+msgid "net"
+msgstr ""
+
+#: client/templates/client/visit_detail.html:107
+msgid "invoice advanced"
+msgstr ""
+
+#: client/templates/client/visit_detail.html:245
+msgid "other visits"
+msgstr ""
+
+#: client/templates/client/visit_list.html:28
+msgid "balance"
+msgstr ""
+
+#: client/templates/client/visit_update_form.html:10
+msgid "new visit"
+msgstr ""
+
+#: client/templates/client/visittreatment_update_form.html:34
+msgid "gross"
+msgstr ""

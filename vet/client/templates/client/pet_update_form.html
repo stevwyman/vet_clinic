@@ -1,0 +1,30 @@
+{% extends "client/layout.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block head-section %}
+{% if pet %}
+{{ pet }}
+{% else %}
+{% trans "new pet"%}
+{% endif %}
+{% endblock %}
+
+{% load django_bootstrap5 %}
+
+{% block row-section %}
+<div class="col col-md-8">
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <input class="btn btn-outline-success float-end" type="submit" value="{% trans 'save' %}">
+        </form>
+    </div>
+</div>
+<div class="col col-md-4">
+    <p><a href="{% url 'species-create' %}" target="_blank">{% trans "new species" %}</a></p>
+    <p><a href="{% url 'race-create' %}" target="_blank">{% trans "new race" %}</a></p>
+</div>
+{% endblock %}

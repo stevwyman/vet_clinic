@@ -1,0 +1,93 @@
+{% extends "client/layout.html" %}
+{% load static %}
+
+{% block head-section %}
+{{ template }}
+{% endblock %}
+
+{% load i18n %}
+
+{% block row-section %}
+<div class="col col-md-8">
+    <div class="row">
+        <table class="table table-hover table-fixed">
+            {% if template.template_treatments.all %}
+            <tr>
+                <th colspan="3" class="fs-4">{% trans "treatments" %}</th>
+            </tr>
+            {% for treatment in template.template_treatments.all %}
+            <tr>
+                <th colspan="3">{{ treatment.type }} <a class="btn btn-sm btn-outline-danger" href="{% url 'template-remove-treatment' treatment.id %}">-</a></th>
+            </tr>
+            <tr onclick="window.location='{% url 'template-update-treatment' treatment.id %}'" style="cursor:hand;cursor:pointer">
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td class="small">{{ treatment.comment }} {% trans "factor" %}: {{ treatment.quantity }} | {% trans "tax" %}: {{ treatment.tax }}% | ppu: €&nbsp;{{ treatment.type.price_per_unit }}</td>
+                <td class="text-end">€&nbsp;{{ treatment.gross_price|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+
+            {% if template.template_medications.all %}
+            <tr>
+                <th colspan="3" class="fs-4">{% trans "medications" %} - §7/§9</th>
+            </tr>
+            {% for medication in template.template_medications.all %}
+            <tr>
+                <th colspan="3">{{ medication.type }} <a class="btn btn-sm btn-outline-danger" href="{% url 'template-remove-medication' medication.id %}">-</a></th>
+            </tr>
+            <tr onclick="window.location='{% url 'template-update-medication' medication.id %}'" style="cursor:hand;cursor:pointer">
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td class="small">{{ medication.comment }} {% trans "quantity" %}: {{ medication.quantity }} | {% trans "tax" %}: {{ medication.tax }} | ppu: €&nbsp;{{ medication.type.price_per_unit }}</td>
+                <td class="text-end">€&nbsp;{{ medication.gross_price|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+
+            {% if template.template_consumables.all %}
+            <tr>
+                <th colspan="3" class="fs-4">{% trans "consumables" %} - §7</th>
+            </tr>
+            {% for consumable in template.template_consumables.all %}
+            <tr>
+                <th colspan="3">{{ consumable.type }} <a class="btn btn-sm btn-outline-danger" href="{% url 'template-remove-consumable' consumable.id %}">-</a></th>
+            </tr>
+            <tr onclick="window.location='{% url 'template-update-consumable' consumable.id %}'" style="cursor:hand;cursor:pointer">
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td class="small">{{ consumable.comment }} {% trans "quantity" %}: {{ consumable.quantity }} | {% trans "tax" %}: {{ consumable.tax }}% | ppu: €&nbsp;{{ consumable.type.price_per_unit }})</td>
+                <td class="text-end">€&nbsp;{{ consumable.gross_price|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="fs-5 fw-bolder text-end">Sum: € {{ template.price|floatformat:2 }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-outline-success float-start" href="{% url 'template-add-medication' template.id %}">+ {% trans 'medication' %}</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-outline-success float-start" href="{% url 'template-add-treatment' template.id %}">+ {% trans 'treatment' %}</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-outline-success float-start" href="{% url 'template-add-consumable' template.id %}">+ {% trans 'consumable' %}</a>
+        </div>
+         
+    </div>
+</div>
+<div class="col col-md-4">
+    <div class="row">
+        <div class="col">
+            <p>{{ template.description }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-sm btn-outline-warning float-end" href="{% url 'template-update' template.id %}">{% trans "update" %}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

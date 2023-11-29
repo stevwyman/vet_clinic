@@ -1,0 +1,87 @@
+{% extends "client/layout.html" %}
+{% load static %}
+
+{% block head-section %}
+{{ owner }}
+{% endblock %}
+
+{% load i18n %}
+
+{% block sub-navigation %}
+{% endblock %}
+
+{% block row-section %}
+<div class="col col-md-8">
+    <div>
+        <table class="table table-hover table-fixed">
+            <thead>
+                <tr>
+                    <th>{% trans "name" %}</th>
+                    <th>&nbsp;</th>
+                    <th>{% trans "birth date" %}</th>
+                    <th>{% trans "last visit" %}</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pet in owner.pets.all %}
+                {% url 'pet-detail' pet.id as pet_url %}
+                <tr onclick="window.location='{{ pet_url }}'" style="cursor:hand;cursor:pointer">
+                    {% load humanize %}
+                    <td>{{ pet.call_name }}</td>
+                    <td><img src="{% static 'client/images/' %}{{ pet.species }}.png" height="30">&nbsp;{{ pet.sex|safe }}</td>
+                    <td>{{ pet.birth_date|date:"SHORT_DATE_FORMAT" }} ({{ pet.calculate_age }})</td>
+                    <td>{{ pet.last_visit.timestamp|naturaltime }}{% if pet.balance != 0 %}<br>{% if pet.balance < 0%}<span class="text-danger">{% trans 'balance due' %} {% else %}<span class="text-success">{% trans 'balance plus' %} {% endif %} €&nbsp;{{ pet.balance|floatformat:2 }} </span>{% endif %}</td>
+                    <td><a class="btn btn-sm btn-outline-warning float-end" href="{% url 'pet-update' pet.id %}">{% trans "update" %}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a class="btn btn-outline-success float-start" href="{% url 'pet-create' owner.id %}">+ {% trans "pet" %}</a>
+    </div>
+</div>
+<div class="col col-md-4">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Adresse</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Rechnung</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+            <p>{{ owner.postal_street_number }} <br>{{ owner.postal_zipcode }} {{ owner.postal_city }}</p>
+        </div>
+        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            <p>{{ owner.billing_street_number }}<br>{{ owner.billing_zipcode }} {{ owner.billing_city }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        {% if owner.mobile %}
+        <p>{{ owner.mobile.as_international }}</p>
+        {% endif %}
+        {% if owner.fixed %}
+        <p>{{ owner.fixed.as_international }}</p>
+        {% endif %}
+        {% if owner.email %}
+        <p>{{ owner.email }}</p>
+        {% endif %}
+        {% if owner.note %}
+        <p class="text-warning fw-semibold">{{ owner.note }}</p>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <p><a class="btn btn-outline-warning float-end" href="{% url 'owner-update' owner.id %}">{% trans "update" %}</a></p>
+    </div>
+    <hr>
+    <div class="row">
+        <p class="small">Managed by: {{ owner.clinic }}</p>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,29 @@
+{% extends "client/layout.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block head-section %}
+{% trans "payment"%}
+{% endblock %}
+                    
+{% load django_bootstrap5 %}
+
+{% block row-section %}
+<div class="col col-md-8">
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input class="btn btn-outline-success float-end" type="submit" value="{% trans 'save' %}">
+    </form>
+</div>
+<div class="col col-md-4">
+    <div class="row">
+        <div class="col">
+            <p>{{ visit.case.pet }}</p>
+            <p>{{ visit.title }}</p>
+            {% trans "payment amount due" %} €&nbsp;{{ visit.price }}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,261 @@
+{% extends "client/layout.html" %}
+{% load static %}
+
+{% load i18n %}
+{% load humanize %}
+
+{% block head-section %}
+{% trans "visit" %} {{ visit.case.pet.call_name }}
+{% endblock %}
+
+{% block head-section-sub %}
+{{ visit.timestamp|naturaltime }}
+{% endblock %}
+
+
+{% block sub-navigation %}
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'owner-detail' visit.case.pet.owner.id %}">{{ visit.case.pet.owner }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'pet-detail' visit.case.pet.id %}">{{ visit.case.pet.call_name }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'case-detail' visit.case.id %}">{{ visit.case.title }}</a></li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block row-section %}
+<div class="col col-md-8">
+    <div class="row">
+        <div class="col col-md-10">
+            <p class="fs-4 fw-bolder">{% trans "visit" %}</p>
+            <p class="fs-5">{{ visit.title }}</p>
+            {% if visit.anamneses %}
+            <p class="fs-5">{{ visit.anamneses }}</p>
+            {% endif %}
+            <p>
+                {% if visit.temperature %}
+                {{ visit.temperature }}°C
+                {% endif %}
+                {% if visit.size %}
+                {{ visit.size }}m
+                {% endif %}
+                {% if visit.weight %}
+                {{ visit.weight }}kg
+                {% endif %}
+            </p>        
+        </div>
+        <div class="col col-md-2">
+            <a class="btn btn-sm btn-outline-warning float-end" href="{% url 'visit-update' visit.id %}">{% trans "update" %}</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover table-fixed">
+                {% if visit.visit_treatments.all %}
+                <tr>
+                    <th colspan="4" class="fs-4">{% trans "treatments" %}</th>
+                </tr>
+                {% for treatment in visit.visit_treatments.all %}
+                <tr>
+                    <th colspan="4">{{ treatment.type }} <a class="small text-danger" href="{% url 'visit-remove-treatment' treatment.id %}">[{% trans "delete" %}]</a></th>
+                </tr>
+                <tr onclick="window.location='{% url 'visit-update-treatment' treatment.id %}'" style="cursor:hand;cursor:pointer">
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+                    <td class="small">{{ treatment.comment }}</td>
+                    <td class="text-end small">{% trans "net" %}:&nbsp;€&nbsp;{{ treatment.net_price|floatformat:2 }} ({{ treatment.tax }}%)</small></td> 
+                    <td class="text-end">€&nbsp;{{ treatment.gross_price|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+    
+                {% if visit.visit_medications.all %}
+                <tr>
+                    <th colspan="4" class="fs-4">{% trans "medications" %} - §7/§9</th>
+                </tr>
+                {% for medication in visit.visit_medications.all %}
+                <tr>
+                    <th colspan="4">{{ medication.type }} <a class="small text-danger" href="{% url 'visit-remove-medication' medication.id %}">[{% trans "delete" %}]</a></th>
+                </tr>
+                <tr onclick="window.location='{% url 'visit-update-medication' medication.id %}'" style="cursor:hand;cursor:pointer">
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+                    <td class="small">{{ medication.comment }}</td>
+                    <td class="text-end small">{% trans "net" %}:&nbsp;€&nbsp;{{ medication.net_price|floatformat:2 }} ({{ medication.tax }}%)</small></td>
+                    <td class="text-end">€&nbsp;{{ medication.gross_price|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+    
+                {% if visit.visit_consumables.all %}
+                <tr>
+                    <th colspan="4" class="fs-4">{% trans "consumables" %} - §7</th>
+                </tr>
+                {% for consumable in visit.visit_consumables.all %}
+                <tr>
+                    <th colspan="4">{{ consumable.type }} <a class="small text-danger" href="{% url 'visit-remove-consumable' consumable.id %}">[{% trans "delete" %}]</a></th>
+                </tr>
+                <tr onclick="window.location='{% url 'visit-update-consumable' consumable.id %}'" style="cursor:hand;cursor:pointer">
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+                    <td class="small">{{ consumable.comment }}</td>
+                    <td class="text-end small">{% trans "net" %}:&nbsp;€&nbsp;{{ consumable.net_price|floatformat:2 }} ({{ consumable.tax }}%)</td>
+                    <td class="text-end">€&nbsp;{{ consumable.gross_price|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+    
+                <tr>
+                    <td colspan="4"><p class="text-end"><span class="fs-5 fw-bolder">Sum: € {{ visit.price|floatformat:2 }}</span><br><span class="small"><a href="{% url 'invoice-advanced' visit.id %}" target="_blank">[{% trans 'invoice advanced' %}]</a> <a href="{% url 'invoice' visit.id %}" target="_blank">[{% trans 'invoice' %}]</a> <a href="{% url 'fit' visit.id %}">[fit]</a></span></p></td>
+                </tr>
+
+                {% if visit.included_full_tax != 0%}
+                <tr class="small">
+                    <td colspan="4" class="text-end">enthalten 19% MWSt € {{ visit.included_full_tax }}</td>
+                </tr>
+                {% endif %}
+                
+                {% if visit.included_reduced_tax != 0%}
+                <tr class="small">
+                    <td colspan="4" class="text-end">enthalten 7% MWSt € {{ visit.included_reduced_tax }}</td>
+                </tr>
+                {% endif %}
+    
+                {% if visit.payment %}
+                <tr>
+                    <th colspan="4" class="fs-4">{% trans "payment" %}</th>
+                </tr>
+                <tr onclick="window.location='{% url 'visit-update-payment' visit.payment.id %}'" style="cursor:hand;cursor:pointer">
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+                    <td>{{ visit.payment.timestamp }}</td>
+                    <td>{{ visit.payment.get_payment_type_display }}</td>
+                    <td class="text-end">€&nbsp;{{ visit.payment.amount }}</td>
+                </tr>
+                {% endif %}
+            </table>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <p class="fs-4 text-end">{% if visit.balance < 0 %}<span class="text-danger">{% trans 'balance due' %} {% else %}<span class="text-success">{% trans 'balance plus' %} {% endif %} €&nbsp;{{ visit.balance|floatformat:2 }} </span></p>
+    </div>
+
+    <hr>
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <a class="btn btn-outline-success float-start" href="{% url 'visit-add-treatment' visit.id %}">+ {% trans "treatment" %}</a>
+        </div>
+        <div class="col-md-auto">
+            <a class="btn btn-outline-success float-start" href="{% url 'visit-add-medication' visit.id %}">+ {% trans "medication" %}</a>
+        </div>
+        <div class="col-md-auto">
+            <a class="btn btn-outline-success float-start" href="{% url 'visit-add-consumable' visit.id %}">+ {% trans "consumable" %}</a>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <a class="btn btn-outline-success float-start" href="{% url 'add_template_to_visit' visit.id %}">+ {% trans "template" %}</a>
+        </div>
+        <div class="col-md-auto">
+            <a class="btn btn-outline-success float-start" href="{% url 'visit-add-document' visit.id %}">+ {% trans "document" %}</a>
+        </div>
+        <div class="col-md-auto">
+            <a class="btn btn-outline-success float-start" href="{% url 'visit-add-payment' visit.id %}">+ {% trans "payment" %}</a>
+        </div>
+    </div>
+
+    {% if visit.visit_documents.all %}
+    <hr>
+    <h4>{% trans "documents" %}</h4>
+    <div class="row">
+        <div>
+            <table class="table table-hover table-fixed">
+                {% for doc in visit.visit_documents.all %}
+                {% url 'media-view' 'visit' doc.id as media_url %}
+                <tr onclick="window.open('{{ media_url }}', '_blank')" style="cursor:hand;cursor:pointer">
+                    <td>{{ doc.created|date:"SHORT_DATE_FORMAT"}}</td>
+                    <td>{{ doc.filename }}</td>
+                    <td class="text-end"><a class="small text-danger" href="{% url 'visit-remove-document' doc.id %}">{% trans "delete" %}</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<div class="col col-md-4">
+    <div class="row">
+        <div>
+            <p><img src="{% static 'client/images/' %}{{ visit.case.pet.species }}.png"></p>
+            <p>
+                <span class="fw-semibold">
+                    {{ visit.case.pet.sex|safe }} {{ visit.case.pet.call_name }} {{ visit.case.pet.species }}
+                    {% if visit.case.pet.birth_name %}<br>{{ visit.case.pet.birth_name }}{% endif %}
+                </span>
+                {% if visit.case.pet.race %}<br>{{ visit.case.pet.race }}{% endif %}
+            </p>    
+            <p>
+                {{ visit.case.pet.birth_date|date:"SHORT_DATE_FORMAT" }} <span class="fw-semibold">({{ visit.case.pet.calculate_age }})</span>
+                {% if visit.case.pet.deceased_date %}{{ visit.case.pet.deceased_date|date:"SHORT_DATE_FORMAT" }}{% endif %}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <ul>
+                {% if visit.case.pet.chip_id %}
+                <li>{% trans "chip id" %}: {{ visit.case.pet.chip_id }}</li>
+                {% endif %}
+                {% if visit.case.pet.insurance %}
+                <li>{% trans "insurance" %}: {{ visit.case.pet.insurance }}</li>
+                {% endif %}
+                {% if visit.case.pet.castrated %}
+                <li>{% trans "castrated" %}</li>
+                {% endif %}
+                {% if visit.case.pet.sterilized %}
+                <li>{% trans "sterilized" %}</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            {% if visit.case.pet.note %}
+            <p class="text-warning fw-semibold">{{ visit.case.pet.note }}</p>
+            {% endif %}
+        
+            {% if visit.case.pet.intolerance.all%}
+            {% trans "intolerance" %}
+            <ul>
+                {% for i in visit.case.pet.intolerance.all %}
+                <li>{{ i.ingredient }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>    
+    <div class="row">
+        <div>
+            <p><a class="btn btn-outline-warning float-end" href="{% url 'pet-update' visit.case.pet.id %}">{% trans "update" %}</a></p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div>
+            <h5>{% trans "other visits" %}</h5>
+            <ul>
+                {% for v in visit.case.visits.all %}
+                {% if v != visit %}
+                <li>
+                    <a href="{% url 'visit-detail' v.id %}">{{ v.timestamp|date:"SHORT_DATE_FORMAT" }}</a>
+                    <ul>
+                        <li>{{ v.anamneses }}</li>
+                    </ul>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

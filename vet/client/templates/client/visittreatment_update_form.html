@@ -1,0 +1,58 @@
+{% extends "client/layout.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block head-section %}
+{% if object %}
+{{ object }}
+{% else %}
+{% trans "new treatment"%}
+{% endif %}
+{% endblock %}
+                    
+{% load django_bootstrap5 %}
+
+{% block row-section %}
+<div class="col col-md-8">
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input class="btn btn-outline-success float-end" type="submit" value="{% trans 'save' %}">
+    </form>
+</div>
+<div class="col col-md-4">
+    {% if visittreatment %}
+    <p>
+        Achtung: Wenn Sie den Preis überschreiben wollen, verwenden Sie bitte einen Brutto-Preis.<br><br>
+        Wenn kein Wert gesetzt ist, wird der gewählte Faktor (hier: {{ visittreatment.quantity }}) verwendet.
+    </p>
+    <table class="table table-hover table-fixed">
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>{% trans "gross" %} [€]</th>
+                <th>{% trans "net" %} [€]</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GOT (1)</td>
+                <td>{{ gross_minimum|floatformat:2 }}</td>
+                <td>{{ net_minimum|floatformat:2 }}</td>
+            </tr>
+            <tr>
+                <td>{{ visittreatment.quantity }}</td>
+                <td>{{ gross_factor|floatformat:2 }}</td>
+                <td>{{ net_factor|floatformat:2 }}</td>
+            </tr>
+            <tr>
+                <td>maximum (4)</td>
+                <td>{{ gross_maximum|floatformat:2 }}</td>
+                <td>{{ net_factor|floatformat:2 }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock %}

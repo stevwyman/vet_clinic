@@ -1,0 +1,35 @@
+{% extends "client/layout.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block head-section %}
+{% trans "choose template to add" %}
+{% endblock %}
+                    
+{% load django_bootstrap5 %}
+
+{% block body %}
+
+<div class="col-md-8">
+    <form action="{% url 'add_template_to_visit' visit.id %}" id="add_template_to_visit" method="POST">
+        <div class="mb-3">
+            <label class="form-label" for="template_select">{% trans "template" %}</label>
+            <select class="form-select form-control" id="template_select" name="template_id">
+                <option selected>select</option>
+                {% for template in templates %}
+                    <option value="{{ template.id }}">{{ template }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+
+        
+        <input type="hidden" name="visit_id" id="visit" value="{{ visit.id }}">
+        <input class="btn btn-outline-success float-end" type="submit" value="{% trans 'save' %}">
+        {% csrf_token %}
+    </div>
+    </form>
+</div>
+
+{% endblock %}

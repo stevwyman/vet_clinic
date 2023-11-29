@@ -1,0 +1,165 @@
+{% extends "client/layout.html" %}
+{% load static %}
+
+{% load i18n %}
+{% load humanize %}
+
+{% block head-section %}
+{% trans "case" %} - {{ case.pet.call_name }}
+{% endblock %}
+
+{% block head-section-sub %}
+{{ case.timestamp|naturaltime }}
+{% endblock %}
+
+{% block sub-navigation %}
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'owner-detail' case.pet.owner.id %}">{{ case.pet.owner }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'pet-detail' case.pet.id %}">{{ case.pet.call_name }}</a></li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block row-section %}
+<div class="col col-md-8">
+    <div class="row">
+        <h4>{% trans "case" %}</h4>
+    </div>
+    <div class="row px-3">
+        <div class="col col-md-10">
+            <p>{{ case.title }}</p>
+            {% if case.description %}
+            <p>{{ case.description }}</p>
+            {% endif %}
+        </div>
+        <div class="col col-md-2">
+            <a class="btn btn-sm btn-outline-warning float-end" href="{% url 'case-update' case.id %}">{% trans "update" %}</a>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="row">
+            <h4>{% trans "visits" %}</h4>
+        </div>
+        <div class="row px-3">
+            <div class="col">
+                <table class="table table-hover table-fixed">
+
+                    {% for visit in case.visits.all %}
+                    <tr onclick="window.location='{% url 'visit-detail' visit.id %}'" style="cursor:hand;cursor:pointer">
+                        <td>{{ visit.timestamp|date:"SHORT_DATE_FORMAT" }}</td>
+                        <td>{{ visit.title }} {% if visit.anamneses %}<br>{{ visit.anamneses }}{% endif %}{% if visit.balance != 0 %}<br>{% if visit.balance < 0 %}<span class="text-danger">{% trans 'balance due' %} {% else %}<span class="text-success">{% trans 'balance plus' %} {% endif %} €&nbsp;{{ visit.balance|floatformat:2 }} </span>{% endif %}</td>
+                        <!-- <td><a class="btn btn-sm btn-outline-warning float-end" href="{% url 'visit-update' visit.id %}">{% trans "update" %}</a></td> -->
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <a class="btn btn-outline-success float-end" href="{% url 'case-add-document' case.id %}">+ {% trans "document" %}</a>
+        </div>
+        <div class="col-md-auto">
+            <a class="btn btn-outline-success float-start" href="{% url 'visit-create' case.id %}">+ {% trans "visit" %}</a>
+        </div>
+    </div>
+    {% if case.case_documents.all %}
+    <hr>
+    <h4>{% trans "documents" %}</h4>
+    <div class="row">
+        <div>
+            <table class="table table-hover table-fixed">
+                {% for doc in case.case_documents.all %}
+                {% url 'media-view' 'case' doc.id as media_url %}
+                <tr onclick="window.open('{{ media_url }}', '_blank')" style="cursor:hand;cursor:pointer">
+                    <td>{{ doc.created|date:"SHORT_DATE_FORMAT"}}</td>
+                    <td>{{ doc.filename }}</td>
+                    <td class="text-end"><a class="small text-danger" href="{% url 'case-remove-document' doc.id %}">{% trans "delete" %}</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<div class="col col-md-4">
+    <div class="row">
+        <div>
+            <p><img src="{% static 'client/images/' %}{{ case.pet.species }}.png"></p>
+            <p>
+                <span class="fw-semibold">
+                    {{ case.pet.sex|safe }} {{ case.pet.call_name }} {{ case.pet.species }}
+                    {% if case.pet.birth_name %}<br>{{ case.pet.birth_name }}{% endif %}
+                </span>
+                {% if case.pet.race %}<br>{{ case.pet.race }}{% endif %}
+            </p>    
+            <p>
+                {{ case.pet.birth_date|date:"SHORT_DATE_FORMAT" }} <span class="fw-semibold">({{ case.pet.calculate_age }})</span>
+                {% if case.pet.deceased_date %}{{ case.pet.deceased_date|date:"SHORT_DATE_FORMAT" }}{% endif %}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <ul>
+                {% if case.pet.chip_id %}
+                <li>{% trans "chip id" %}: {{ case.pet.chip_id }}</li>
+                {% endif %}
+                {% if case.pet.insurance %}
+                <li>{% trans "insurance" %}: {{ case.pet.insurance }}</li>
+                {% endif %}
+                {% if case.pet.castrated %}
+                <li>{% trans "castrated" %}</li>
+                {% endif %}
+                {% if case.pet.sterilized %}
+                <li>{% trans "sterilized" %}</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            {% if case.pet.note %}
+            <p class="text-warning fw-semibold">{{ case.pet.note }}</p>
+            {% endif %}
+        
+            {% if case.pet.intolerance.all%}
+            {% trans "intolerance" %}
+            <ul>
+                {% for i in case.pet.intolerance.all %}
+                <li>{{ i.ingredient }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>    
+    <div class="row">
+        <div>
+            <p><a class="btn btn-outline-warning float-end" href="{% url 'pet-update' case.pet.id %}">{% trans "update" %}</a></p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div>
+            <h5>{% trans "other cases" %}</h5>
+            <ul>
+                {% for c in case.pet.cases.all %}
+                {% if c != case %}
+                <li>
+                    <a href="{% url 'case-detail' c.id %}">{{ c.timestamp|date:"SHORT_DATE_FORMAT" }}</a>
+                    <ul>
+                        <li>{{ c.title }}</li>
+                    </ul>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

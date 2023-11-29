@@ -1,0 +1,24 @@
+{% extends "client/layout.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block head-section %}
+{% if intolerance %}
+{{ intolerance }}
+{% else %}
+{% trans "new intolerance"%}
+{% endif %}
+{% endblock %}
+                    
+{% load django_bootstrap5 %}
+
+{% block body %}
+
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <input class="btn btn-outline-success float-end" type="submit" value="{% trans 'save' %}">
+</form>
+
+{% endblock %}

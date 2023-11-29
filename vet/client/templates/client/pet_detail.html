@@ -1,0 +1,212 @@
+{% extends "client/layout.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block head-section %}
+{% trans "overview" %} - {{ pet.call_name }}
+{% endblock %}
+
+{% block sub-navigation %}
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'owner-detail' pet.owner.id %}">{{ pet.owner }}</a></li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block row-section %}
+<div class="col col-md-8">
+    <div class="row">
+        <div>
+            <a class="btn btn-outline-success float-start" href="{% url 'case-create' pet.id %}">+ {% trans "case" %}</a>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <table class="table table-hover table-fixed">
+                <thead>
+                    <tr>
+                        <th>{% trans "date" %}</th>
+                        <th>{% trans "case" %}</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    {% for case in pet.cases.all %}
+                    <tr onclick="window.location='{% url 'case-detail' case.id %}'" style="cursor:hand;cursor:pointer">
+                        <td>{{ case.timestamp|date:"SHORT_DATE_FORMAT" }}</td>
+                        <td>
+                            {{ case.title }}
+                            <ul>
+                                {% for visit in case.visits.all %}
+                                <li>
+                                    <a href="{% url 'visit-detail' visit.id %}">{{ visit.timestamp|date:"SHORT_DATE_FORMAT" }} - {{ visit.title }}</a>
+                                    <ul>
+                                        {% if visit.anamneses %}
+                                        <li>{{ visit.anamneses }}</li>
+                                        {% endif %}
+                                        {% if visit.balance != 0 %}
+                                        <li> {% if visit.balance < 0 %}<span class="text-danger">{% trans 'balance due' %} {% else %}<span class="text-success">{% trans 'balance plus' %} {% endif %} €&nbsp;{{ visit.balance|floatformat:2 }} </span></li>
+                                        {% endif %}
+                                    </ul>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td><a class="btn btn-sm btn-outline-warning float-end" href="{% url 'case-update' case.id %}">{% trans "update" %}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+    <hr>
+    <h4>{% trans "documents" %}</h4>
+    <div class="row">
+        <div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">{{ pet.call_name }}</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">{% trans "cases" %}</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="visit-tab" data-bs-toggle="tab" data-bs-target="#visit-tab-pane" type="button" role="tab" aria-controls="visit-tab-pane" aria-selected="false">{% trans "visits" %}</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                    <table class="table table-hover table-fixed">
+                        {% for doc in pet.pet_documents.all %}
+                        {% url 'media-view' 'pet' doc.id as media_url %}
+                        <tr onclick="window.open('{{ media_url }}', '_blank')" style="cursor:hand;cursor:pointer">
+                            <td>{{ doc.created|date:"SHORT_DATE_FORMAT"}}</td>
+                            <td>{{ doc.filename }}</td>
+                            <td class="text-end"><a class="small text-danger" href="{% url 'pet-remove-document' doc.id %}">{% trans "delete" %}</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                    <table class="table table-hover table-fixed">
+                        {% for case in pet.cases.all %}
+                        {% if case.case_documents.all %}
+                        <tr>
+                            <th colspan="3">{{ case.title }}</th>
+                        </tr>
+                        {% for doc in case.case_documents.all %}
+                        {% url 'media-view' 'case' doc.id as media_url %}
+                        <tr onclick="window.open('{{ media_url }}', '_blank')" style="cursor:hand;cursor:pointer">
+                            <td>{{ doc.created|date:"SHORT_DATE_FORMAT"}}</td>
+                            <td>{{ doc.filename }}</td>
+                            <td class="text-end"><a class="small text-danger" href="{% url 'case-remove-document' doc.id %}">{% trans "delete" %}</a></td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="visit-tab-pane" role="tabpanel" aria-labelledby="visit-tab" tabindex="0">
+                    <table class="table table-hover table-fixed">
+                        {% for case in pet.cases.all %}
+                        {% for visit in case.visits.all %}
+                        {% if visit.visit_documents.all %}
+                        <tr>
+                            <th colspan="3">{{ visit }}</th>
+                        </tr>
+                        {% for doc in visit.visit_documents.all %}
+                        {% url 'media-view' 'visit' doc.id as media_url %}
+                        <tr onclick="window.open('{{ media_url }}', '_blank')" style="cursor:hand;cursor:pointer">
+                            <td>{{ doc.created|date:"SHORT_DATE_FORMAT"}}</td>
+                            <td>{{ doc.filename }}</td>
+                            <td class="text-end"><a class="small text-danger" href="{% url 'visit-remove-document' doc.id %}">{% trans "delete" %}</a></td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col col-md-4">
+    <div class="row">
+        <div>
+            <p><img src="{% static 'client/images/' %}{{ pet.species }}.png"></p>
+            <p>
+                <span class="fw-semibold">
+                    {{ pet.sex|safe }} {{ pet.call_name }} {{ pet.species }}
+                    {% if pet.birth_name %}<br>{{ pet.birth_name }}{% endif %}
+                </span>
+                {% if pet.race %}<br>{{ pet.race }}{% endif %}
+            </p>    
+            <p>
+                {{ pet.birth_date|date:"SHORT_DATE_FORMAT" }} <span class="fw-semibold">({{ pet.calculate_age }})</span>
+                {% if pet.deceased_date %}{{ pet.deceased_date|date:"SHORT_DATE_FORMAT" }}{% endif %}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <ul>
+                {% if pet.chip_id %}
+                <li>{% trans "chip id" %}: {{ pet.chip_id }}</li>
+                {% endif %}
+                {% if pet.insurance %}
+                <li>{% trans "insurance" %}: {{ pet.insurance }}</li>
+                {% endif %}
+                {% if pet.castrated %}
+                <li>{% trans "castrated" %}</li>
+                {% endif %}
+                {% if pet.sterilized %}
+                <li>{% trans "sterilized" %}</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            {% if pet.note %}
+            <p class="text-warning fw-semibold">{{ pet.note }}</p>
+            {% endif %}
+        
+            {% if pet.intolerance.all%}
+            {% trans "intolerance" %}
+            <ul>
+                {% for i in pet.intolerance.all %}
+                <li>{{ i.ingredient }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-outline-success float-end" href="{% url 'pet-add-document' pet.id %}">+ {% trans "document" %}</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-outline-warning float-end" href="{% url 'pet-update' pet.id %}">{% trans "update" %}</a>
+        </div>
+    </div>
+    <div class="row">
+        {% for visit in pet.visits.all %}
+        <h4>{% trans "documents" %}</h4>
+        {% if visit.visit_documents %}
+        <ul>
+            {% for doc in visit.visit_documents.all %}
+            {% url 'media-view' doc.id as media_url %}
+            <li>{{ doc.created|date:'d-m-Y' }} <a target="_blank" href="{{ media_url }}">{{ doc.filename }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endfor%}
+    </div>
+</div>
+{% endblock %}

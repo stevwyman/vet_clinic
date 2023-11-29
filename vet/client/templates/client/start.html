@@ -1,0 +1,20 @@
+{% extends "client/layout_public.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block row-section %}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Anmeldung</h1>
+        <p class="lead text-body-secondary">Wenn Sie ein Neukunde sind, registrieren Sie sich bitte über die folgenden Schritte. Wir benötigen Ihre Zustimmung zur DSGVO, damit wir Ihre Daten nutzen können.</p>
+        <p>
+          <a href="{% url 'register-owner' clinic %}" class="btn btn-primary my-2">{% trans 'register' %}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock %}

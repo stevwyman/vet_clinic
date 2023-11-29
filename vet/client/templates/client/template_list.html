@@ -1,0 +1,61 @@
+{% extends "client/layout.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block head-section %}
+{% trans "templates" %}
+{% endblock %}
+
+{% block row-section %}
+<div class="col">
+    <div class="text-end">
+        <form method="GET">
+            <input type="text" name="q" value="{{ request.GET.q }}"">
+            <input class="btn btn-sm btn-outline-success" type="submit" value="{% trans 'search' %}">
+          </form>
+    </div>
+    <div>
+        <table class="table table-hover table-fixed">
+            <thead>
+                <tr>
+                    <th>{% trans "name" %}</th>
+                    <th>{% trans "description" %}</th>
+                    <th>{% trans "price" %} [€]</th>
+                    <th>&NonBreakingSpace;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for template in page_obj %}
+                <tr>
+                    <td><a href="{% url 'template-detail' template.id %}">{{ template.name }}</a></td>
+                    <td>{{ template.description }}</td>
+                    <td>{{ template.price|floatformat:2 }}</td>
+                    <td><a class="btn btn-sm btn-outline-warning float-start" href="{% url 'template-update' template.id %}">{% trans "update" %}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; {% trans "first" %}</a>
+                <a href="?page={{ page_obj.previous_page_number }}">{% trans "previous" %}</a>
+            {% endif %}
+    
+            <span class="current">
+                {% trans "page" %} {{ page_obj.number }} {% trans "of" %} {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">{% trans "next" %}</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">{% trans "last" %} &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    <div>
+        <p><a class="btn btn-outline-success float-start" href="{% url 'template-create' %}">+ {% trans "template" %}</a></p>
+    </div>
+</div>
+{% endblock %}

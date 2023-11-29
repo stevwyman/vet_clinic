@@ -1,0 +1,346 @@
+
+# Treatments
+#
+# Teil A Grundleistungen
+#
+- model: client.TreatmentType
+  fields:
+    code: 1
+    description: Beratung im einzelnen Fall ohne Untersuchung (auch schriftlich oder fernmündlich)
+    price_per_unit: 11.26
+- model: client.TreatmentType
+  fields:
+    code: 2
+    description: Eingehende Anamneseerhebung oder Beratung das gewöhnliche Maß übersteigend
+    price_per_unit: 30.78
+- model: client.TreatmentType
+  fields:
+    code: 3
+    description: Dokumentation aufgrund gesetzlicher Vorgaben
+    price_per_unit: 11.20
+- model: client.TreatmentType
+  fields:
+    code: 16
+    description: Allgemeine Untersuchung mit Beratung, Hund, Katze, Frettchen
+    price_per_unit: 23.62
+- model: client.TreatmentType
+  fields:
+    code: 17
+    description: Allgemeine Untersuchung mit Beratung, Heimsäugetiere
+    price_per_unit: 15.39
+- model: client.TreatmentType
+  fields:
+    code: 21
+    description: Allgemeine Untersuchung ohne Beratung
+    price_per_unit: 21.41
+#
+# Teil B Besondere Leistungen
+#
+- model: client.TreatmentType
+  fields:
+    code: 87
+    description: Impfbescheinigung
+    price_per_unit: 6.16
+#
+# 3. Sonstige Laboratoriumsdiagnostik
+#
+- model: client.TreatmentType
+  fields:
+    code: 143
+    description: Auswertung von Laborwerten und Befunden aus Fremduntersuchungen, einfach
+    price_per_unit: 25.00
+- model: client.TreatmentType
+  fields:
+    code: 144
+    description: Bearbeitung von Proben zum Versand
+    price_per_unit: 10.26
+# Euthanasie
+- model: client.TreatmentType
+  fields:
+    code: 208
+    description: Euthanasie durch Injektion, Hund, Katze, Frettchen
+    price_per_unit: 30.78
+- model: client.TreatmentType
+  fields:
+    code: 209
+    description: Euthanasie durch Injektion, Heimsäugetiere, Stubenvögel
+    price_per_unit: 10.26
+# Injektion, Instillation, Infusion
+- model: client.TreatmentType
+  fields:
+    code: 221
+    description: Injektion, subkutan, intrakutan, intramuskulär, Hund, Katze, Frettchen 
+    price_per_unit: 11.50
+- model: client.TreatmentType
+  fields:
+    code: 222
+    description: Injektion subkutan, intrakutan, intramuskulär, intraingluvial, Heimsäugetiere und Stubenvögel 
+    price_per_unit: 11.50
+- model: client.TreatmentType
+  fields:
+    code: 224
+    description: Injektion, Instillation intravenös, intratracheal, subkonjunktival 
+    price_per_unit: 17.25
+- model: client.TreatmentType
+  fields:
+    code: 225
+    description: Venenkatheter peripher einlegen 
+    price_per_unit: 14.62
+- model: client.TreatmentType
+  fields:
+    code: 228
+    description: Injektion, Instillation, extradural, intraartikulär, intrabulbär
+    price_per_unit: 23.21
+# Kennzeichnen
+- model: client.TreatmentType
+  fields:
+    code: 236
+    description: Ohrmarke einziehen
+    price_per_unit: 1.90
+- model: client.TreatmentType
+  fields:
+    code: 237
+    description: Tätowieren
+    price_per_unit: 15.47
+- model: client.TreatmentType
+  fields:
+    code: 238
+    description: Implantation eines Transponders
+    price_per_unit: 10.24
+- model: client.TreatmentType
+  fields:
+    code: 239
+    description: Dokumentation im Rahmen der Kennzeichnung
+    price_per_unit: 5.50
+- model: client.TreatmentType
+  fields:
+    code: 240
+    description: Ablesen einer Kennzeichnung, z.B. Tätowierung, Transponder, Ohrmarke
+    price_per_unit: 4.59
+# Verband anlegen oder abnehmen
+- model: client.TreatmentType
+  fields:
+    code: 251
+    description: Verband anlegen oder abnehmen
+    price_per_unit: 17.25
+- model: client.TreatmentType
+  fields:
+    code: 252
+    description: Verband anlegen oder abnehmen, kompliziert
+    price_per_unit: 34.50
+# Sedation, Injektionsnarkose
+
+# Injektionsnarkose intramuskulär
+- model: client.TreatmentType
+  fields:
+    code: 310
+    description: Injektionsnarkose intramuskulär, Hund, Katze, Frettchen
+    price_per_unit: 23.44
+- model: client.TreatmentType
+  fields:
+    code: 311
+    description: Injektionsnarkose intramuskulär, Heimsäugetiere und Stubenvögel
+    price_per_unit: 21.56
+- model: client.TreatmentType
+  fields:
+    code: 378
+    description: Kastration Kater
+    price_per_unit: 30.32
+
+- model: client.TreatmentType
+  fields:
+    code: 417
+    description: Wundspülung
+    price_per_unit: 16.00
+- model: client.TreatmentType
+  fields:
+    code: 418
+    description: Wundtoilette
+    price_per_unit: 20.54
+- model: client.TreatmentType
+  fields:
+    code: 419
+    description: Wundtoilette aufwändig / Drainage
+    price_per_unit: 44.00
+- model: client.TreatmentType
+  fields:
+    code: 420
+    description: Wundverschluss
+    price_per_unit: 20.54
+
+# 3d) Nicht chirurgische Bahndlungen
+- model: client.TreatmentType
+  fields:
+    code: 404
+    description: Zecke(n) entfernen
+    price_per_unit: 8.10
+- model: client.TreatmentType
+  fields:
+    code: 405
+    description: Haare entfilzen oder scheren, kleinflächig
+    price_per_unit: 24.00
+- model: client.TreatmentType
+  fields:
+    code: 406
+    description: Haare entfilzen oder scheren, großflächig
+    price_per_unit: 72.00
+# 3e) Chirurgische Behandlungen
+
+# 3f) Wunden
+- model: client.TreatmentType
+  fields:
+    code: 421
+    description: Wundverschluss, kompliziert
+    price_per_unit: 81.32
+- model: client.TreatmentType
+  fields:
+    code: 422
+    description: Fäden ziehen, Klammern entfernen
+    price_per_unit: 8.21
+- model: client.TreatmentType
+  fields:
+    code: 423
+    description: Drainage ziehen
+    price_per_unit: 11.57
+- model: client.TreatmentType
+  fields:
+    code: 424
+    description: Operation einer Bauchwunde, perforierend
+    price_per_unit: 131.32
+- model: client.TreatmentType
+  fields:
+    code: 425
+    description: Operation einer Bauchwunde, perforierend, kompliziert
+    price_per_unit: 190.23
+- model: client.TreatmentType
+  fields:
+    code: 427
+    description: Krallen kürzen 
+    price_per_unit: 10.26
+# Hämatologie
+# 6a) Blutuntersuchung im eigenen Labor
+- model: client.TreatmentType
+  fields:
+    code: 608
+    description: Aufbereitung von Blutproben, z.B. Zentrifugation, Abpipettieren, Ausstrich 
+    price_per_unit: 27.10
+# 6b) Nicht chirurgische Behandlungen
+- model: client.TreatmentType
+  fields:
+    code: 627
+    description: Blutprobenentnahme venös, bis zu 4 Tieren, je Tier 
+    price_per_unit: 10.26
+# 7 Herz, Kreislauf, Gefäß
+# 7a) Untersuchungen
+- model: client.TreatmentType
+  fields:
+    code: 643
+    description: Eingehende Untersuchung einzelner Organe; Herz 
+    price_per_unit: 15.39
+- model: client.TreatmentType
+  fields:
+    code: 927
+    description: Okklusionskorrektur Backenzähne, Heimsäugetiere 
+    price_per_unit: 25.65
+- model: client.TreatmentType
+  fields:
+    code: 970
+    description: Behandlung von Kieferabszessen, Erstbehandlung, Heimsäugetiere 
+    price_per_unit: 39.88
+#
+# Medication Types
+#
+- model: client.MedicationType
+  fields:
+    code: 10
+    description: Narkosemittel
+    price_per_unit: 1
+- model: client.MedicationType
+  fields:
+    code: 11
+    description: Narkosemittel für Hunde
+    price_per_unit: 2.22
+- model: client.MedicationType
+  fields:
+    code: 12
+    description: Narkosemittel für Katzen
+    price_per_unit: 3.33
+- model: client.MedicationType
+  fields:
+    code: 13
+    description: Narkosemittel für Kleinsäuger
+    price_per_unit: 1.11
+- model: client.MedicationType
+  fields:
+    code: 30
+    description: Impfstoff
+    price_per_unit: 1
+- model: client.MedicationType
+  fields:
+    code: 31
+    description: Impfstoff 1-fach Tollwut Hunde
+    price_per_unit: 2.00
+- model: client.MedicationType
+  fields:
+    code: 32
+    description: Impfstoff 2-fach Hunde
+    price_per_unit: 2
+- model: client.MedicationType
+  fields:
+    code: 33
+    description: Impfstoff 3-fach Hunde
+    price_per_unit: 3
+- model: client.MedicationType
+  fields:
+    code: 50
+    description: Antibiotikum
+    price_per_unit: 1
+- model: client.MedicationType
+  fields:
+    code: 51
+    description: BB Antibiotika Hunde
+    price_per_unit: 5.87
+- model: client.MedicationType
+  fields:
+    code: 101
+    description: Metacam 1,5 mg/ml Suspension fpr Hunde
+    price_per_unit: 0.7
+- model: client.MedicationType
+  fields:
+    code: 200
+    description: Futtermittel (Dose)
+    price_per_unit: 1
+- model: client.MedicationType
+  fields:
+    code: 201
+    description: Katzenfuttermittel 6 Dosen
+    price_per_unit: 13.54
+
+#
+# Consumables - Verbrauchsmaterialien
+#
+- model: client.ConsumablesType
+  fields:
+    code: 1
+    description: Verbrauchsmaterial
+    price_per_unit: 1.0
+- model: client.ConsumablesType
+  fields:
+    code: 10
+    description: Nahtmaterial
+    price_per_unit: 1.0
+- model: client.ConsumablesType
+  fields:
+    code: 11
+    description: Nahtmaterial PGLA 35 CN 0 - 3.5 Metric
+    price_per_unit: 3.9
+- model: client.ConsumablesType
+  fields:
+    code: 12
+    description: Nahtmaterial PGLA 2 CN 3/0 - 2 Metric
+    price_per_unit: 3.8
+- model: client.ConsumablesType
+  fields:
+    code: 100
+    description: Auslagen - Laborkosten externer Labors
+    price_per_unit: 1
