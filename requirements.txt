@@ -3,3 +3,4 @@ django-phonenumber-field[phonenumberslite]
 django-two-factor-auth
 fpdf2
 pyyaml
+python-dotenv

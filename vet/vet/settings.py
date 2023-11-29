@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+from dotenv import load_dotenv, find_dotenv
 from pathlib import Path
 
 import os
@@ -22,12 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-9$fml60h^fsds=%ndfk%x4yfsybcgy7m7^&++8kc+im+^hy!lg"
+#SECRET_KEY = "django-insecure-9$fml60h^fsds=%ndfk%x4yfsybcgy7m7^&++8kc+im+^hy!lg"
+load_dotenv(find_dotenv())
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don"t run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["www.stevwyman.com", "stevwyman.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["www.stevwyman.com", "stevwyman.com"]
 
 CSRF_TRUSTED_ORIGINS = ["https://stevwyman.com"]
 
@@ -100,8 +102,7 @@ WSGI_APPLICATION = "vet.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-        #"NAME": "/data/vet_client/db.sqlite3"
+        "NAME": "/data/vet_client/db.sqlite3"
     }
 }
 
@@ -190,5 +191,6 @@ LOGGING = {
 }
 
 MEDIA_URL = "/client/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-#MEDIA_ROOT = "/data/vet_client/media"
+MEDIA_ROOT = "/data/vet_client/media"
+
+from .settings_local import *

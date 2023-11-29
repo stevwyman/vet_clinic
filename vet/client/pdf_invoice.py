@@ -115,21 +115,21 @@ class InvoiceDocument(FPDF):
         # address
         self.cell(
             0,
-            6,
+            5,
             txt="{} {}".format(self._owner.firstname, self._owner.lastname),
             ln=1,
             border=BORDER,
         )
         self.cell(
             0,
-            6,
+            5,
             txt=self._owner.postal_street_number,
             ln=1,
             border=BORDER,
         )
         self.cell(
             0,
-            6,
+            5,
             txt="{} {}".format(self._owner.postal_zipcode, self._owner.postal_city),
             ln=1,
             border=BORDER,
@@ -216,7 +216,12 @@ class InvoiceDocument(FPDF):
 
         last_before = ("", "")
         table_data.append(last_before)
-        last = ("Summe inclusive 19% MWSt.", "€ " + str(self._visit.price()))
+        sum = "Summe inklusive MWSt. "
+        if self._visit.included_full_tax() != 0:
+            sum += f"[19% € {self._visit.included_full_tax()}]"
+        if self._visit.included_reduced_tax() != 0:
+            sum += f"[7% € {self._visit.included_reduced_tax()}]"
+        last = sum, "€ " + str(self._visit.price())
         table_data.append(last)
 
         with self.table(

@@ -28,6 +28,9 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
+    - name: 'Create env file'
+      run: |
+        echo "${{ secrets.ENV_FILE }}" > .env
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
@@ -40,6 +43,9 @@ jobs:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
+      - name: Create env file
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
       - name: Check out the repo
         uses: actions/checkout@v4
       
