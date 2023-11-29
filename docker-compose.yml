@@ -8,9 +8,7 @@ services:
         command: python vet/manage.py runserver 0.0.0.0:8003
         volumes:
             - :/usr/src/app/
-            - /data/vet_client:/data/vet_client
         ports:
-            - 8003:28003
-        environment:
-            - foo=bar
+            - 8003:8003
+        
         
