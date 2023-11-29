@@ -3,6 +3,9 @@ FROM python:3.11-slim
 
 EXPOSE 8003
 
+RUN apt update
+RUN apt install gettext -y
+
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1
 
@@ -19,4 +22,7 @@ WORKDIR /usr/src/app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-CMD ["./vet/manage.py", "runserver", "0.0.0.0:8003"]  # as before
+#CMD ["./vet/manage.py", "runserver", "0.0.0.0:8003"]  # as before
+
+# run docker-entrypoint.sh
+ENTRYPOINT ["./docker-entrypoint.sh"]
