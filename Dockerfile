@@ -22,8 +22,8 @@ WORKDIR /usr/src/app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-#CMD ["./vet/manage.py", "runserver", "0.0.0.0:8003"]  # as before
-
 # run docker-entrypoint.sh
 RUN chmod +x docker-entrypoint.sh
 ENTRYPOINT ["./docker-entrypoint.sh"]
+
+CMD ["./vet/manage.py", "runserver", "0.0.0.0:8003"]
