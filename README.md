@@ -54,6 +54,8 @@ sesionmiddleware is used for filtering requests to documents
 
 ## Build and Develop
 
+we are using the concept of the settings_local.py to overwrite the production values
+
 ```sh
 pip install -r requirements.txt
 
