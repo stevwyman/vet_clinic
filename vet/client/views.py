@@ -108,7 +108,7 @@ class ClinicUpdateView(OTPRequiredMixin, UpdateView):
         return reverse_lazy("home",)
 
     def form_valid(self, form):
-        messages.success(self.request, "The owner was updated successfully.")
+        messages.success(self.request, _("The clinic was updated successfully."))
         return super(ClinicUpdateView, self).form_valid(form)
 
 
@@ -166,7 +166,7 @@ class OwnerCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.clinic = self.clinic
         form.instance.confirmed = True
-        messages.success(self.request, "The owner was created successfully.")
+        messages.success(self.request, _("The owner was created successfully."))
         return super(OwnerCreateView, self).form_valid(form)
 
 
@@ -196,7 +196,7 @@ class OwnerUpdateView(OTPRequiredMixin, UpdateView):
         return reverse_lazy("owner-detail", kwargs={"pk": owner_id})
 
     def form_valid(self, form):
-        messages.success(self.request, "The owner was updated successfully.")
+        messages.success(self.request, _("The owner was updated successfully."))
         return super(OwnerUpdateView, self).form_valid(form)
 
 
@@ -277,7 +277,7 @@ class PetCreateView(LoginRequiredMixin, CreateView):
         form.instance.owner = (
             self.owner
         )  # if the article is not a required field, otherwise you can use the commit=False way
-        messages.success(self.request, "Pet has been successfully created.")
+        messages.success(self.request, _("Pet has been successfully created."))
         return super(PetCreateView, self).form_valid(form)
 
 
@@ -307,7 +307,7 @@ class PetUpdateView(OTPRequiredMixin, UpdateView):
         return reverse_lazy("pet-detail", kwargs={"pk": pet_id})
 
     def form_valid(self, form):
-        messages.success(self.request, "The pet was updated successfully.")
+        messages.success(self.request, _("The pet was updated successfully."))
         return super(PetUpdateView, self).form_valid(form)
 
 
@@ -336,7 +336,7 @@ class CaseCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.pet = self.pet
-        messages.success(self.request, "Case has been successfully created.")
+        messages.success(self.request, _("Case has been successfully created."))
         return super(CaseCreateView, self).form_valid(form)
 
 
@@ -352,7 +352,7 @@ class CaseUpdateView(OTPRequiredMixin, UpdateView):
         return reverse_lazy("case-detail", kwargs={"pk": case_id})
 
     def form_valid(self, form):
-        messages.success(self.request, "The case was updated successfully.")
+        messages.success(self.request, _("The case was updated successfully."))
         return super(CaseUpdateView, self).form_valid(form)
 
 
@@ -377,7 +377,7 @@ class VisitCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.case = self.case
-        messages.success(self.request, "Visit has been successfully created.")
+        messages.success(self.request, _("Visit has been successfully created."))
         return super(VisitCreateView, self).form_valid(form)
 
 
@@ -393,12 +393,11 @@ class VisitUpdateView(OTPRequiredMixin, UpdateView):
         return reverse_lazy("visit-detail", kwargs={"pk": visit_id})
 
     def form_valid(self, form):
-        messages.success(self.request, "The visit was updated successfully.")
+        messages.success(self.request, _("The visit was updated successfully."))
         return super(VisitUpdateView, self).form_valid(form)
 
 
-from django.utils.timezone import datetime
-
+from django.utils import timezone
 
 @class_view_decorator(never_cache)
 class VisitListView(OTPRequiredMixin, ListView):
@@ -409,13 +408,28 @@ class VisitListView(OTPRequiredMixin, ListView):
     def get_queryset(self):
         query = self.request.GET.get("q")
         if query:
-            query_date = datetime.strptime(query, "%d.%m.%Y").date()
-            object_list = self.model.objects.filter(timestamp__date=query_date)
+            if query == "all":
+                object_list = self.model.objects.all()
+            elif query == "week":
+                #week_start = datetime.now().date()
+                week_start = timezone.now()
+                week_start -= timezone.timedelta(days=week_start.weekday())
+                week_end = week_start + timezone.timedelta(days=7)
+                object_list = self.model.objects.filter(
+                    timestamp__gte=week_start,
+                    timestamp__lt=week_end
+                )
+            else:
+                try:
+                    query_date = timezone.datetime.strptime(query, "%d.%m.%Y").date()
+                except ValueError:
+                    messages.warning(self.request, _("Please use the format: dd.mm.yyyy"))
+                    return self.model.objects.none()
+                object_list = self.model.objects.filter(timestamp__date=query_date)
         else:
-            # object_list = self.model.objects.none() # for better performance
             object_list = self.model.objects.filter(
-                timestamp__date=datetime.now().date()
-            )  # for testing
+                timestamp__date=timezone.now().date()
+            )  
         return object_list
 
 
@@ -436,7 +450,7 @@ class PaymentAddView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.visit = self.visit
-        messages.success(self.request, "Payment has been successfully created.")
+        messages.success(self.request, _("Payment has been successfully created."))
         return super(PaymentAddView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -457,7 +471,7 @@ class PaymentUpdateView(OTPRequiredMixin, UpdateView):
         return reverse_lazy("visit-detail", kwargs={"pk": visit.id})
 
     def form_valid(self, form):
-        messages.success(self.request, "The treatment was updated successfully.")
+        messages.success(self.request, _("The payment was updated successfully."))
         return super(PaymentUpdateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -502,7 +516,7 @@ class VisitTreatmentAddView(OTPRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.visit = self.visit
         form.instance.price_per_unit = form.instance.type.price_per_unit
-        messages.success(self.request, "Treatment has been successfully created.")
+        messages.success(self.request, _("Treatment has been successfully created."))
         return super(VisitTreatmentAddView, self).form_valid(form)
 
 
@@ -518,7 +532,7 @@ class VisitTreatmentUpdateView(OTPRequiredMixin, UpdateView):
         return reverse_lazy("visit-detail", kwargs={"pk": visit.id})
 
     def form_valid(self, form):
-        messages.success(self.request, "The treatment was updated successfully.")
+        messages.success(self.request, _("The treatment was updated successfully."))
         return super(VisitTreatmentUpdateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -579,7 +593,7 @@ class TreatmentTypeCreateView(OTPRequiredMixin, CreateView):
         return reverse_lazy("treatment-types")
 
     def form_valid(self, form):
-        messages.success(self.request, "The treatment type was created successfully.")
+        messages.success(self.request, _("The treatment type was created successfully."))
         return super(TreatmentTypeCreateView, self).form_valid(form)
 
 
@@ -595,7 +609,7 @@ class TreatmentTypeUpdateView(OTPRequiredMixin, UpdateView):
         return reverse_lazy("treatment-types")
 
     def form_valid(self, form):
-        messages.success(self.request, "The treatment type was updated successfully.")
+        messages.success(self.request, _("The treatment type was updated successfully."))
         return super(TreatmentTypeUpdateView, self).form_valid(form)
 
 
@@ -1250,7 +1264,7 @@ class OwnerWaitView(CreateView):
 
     def form_valid(self, form):
         form.instance.clinic = self.clinic
-        messages.success(self.request, "The owner was created successfully.")
+        messages.success(self.request, _("The owner was created successfully."))
         return super(OwnerWaitView, self).form_valid(form)
 
 
@@ -1281,7 +1295,7 @@ class PetWaitCreateView(CreateView):
         form.instance.owner = (
             self.owner
         )  # if the article is not a required field, otherwise you can use the commit=False way
-        messages.success(self.request, "Pet has been successfully created.")
+        messages.success(self.request, _("Pet has been successfully created."))
         return super(PetWaitCreateView, self).form_valid(form)
 
 
@@ -1346,7 +1360,7 @@ class CallOwnerUpdateView(OTPRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.confirmed = True
-        messages.success(self.request, "The owner was updated successfully.")
+        messages.success(self.request, _("The owner was updated successfully."))
         return super(CallOwnerUpdateView, self).form_valid(form)
 
 

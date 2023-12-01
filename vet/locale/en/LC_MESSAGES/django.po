@@ -263,7 +263,7 @@ msgstr ""
 msgid "payment type"
 msgstr ""
 
-#: client/pdf_invoice.py:240
+#: client/pdf_invoice.py:245
 msgid "greet"
 msgstr ""
 
@@ -689,6 +689,10 @@ msgstr ""
 msgid "new treatment"
 msgstr ""
 
+#: client/templates/client/thanks.html:7
+msgid "thank you"
+msgstr ""
+
 #: client/templates/client/treatmenttype_update_form.html:25
 msgid "note for new/update treatment type"
 msgstr ""
@@ -718,4 +722,68 @@ msgstr ""
 
 #: client/templates/client/visittreatment_update_form.html:34
 msgid "gross"
+msgstr ""
+
+#: client/views.py:111
+msgid "The clinic was updated successfully."
+msgstr ""
+
+#: client/views.py:169 client/views.py:1267
+msgid "The owner was created successfully."
+msgstr ""
+
+#: client/views.py:199 client/views.py:1363
+msgid "The owner was updated successfully."
+msgstr ""
+
+#: client/views.py:280 client/views.py:1298
+msgid "Pet has been successfully created."
+msgstr ""
+
+#: client/views.py:310
+msgid "The pet was updated successfully."
+msgstr ""
+
+#: client/views.py:339
+msgid "Case has been successfully created."
+msgstr ""
+
+#: client/views.py:355
+msgid "The case was updated successfully."
+msgstr ""
+
+#: client/views.py:380
+msgid "Visit has been successfully created."
+msgstr ""
+
+#: client/views.py:396
+msgid "The visit was updated successfully."
+msgstr ""
+
+#: client/views.py:426
+msgid "Please use the format: dd.mm.yyyy"
+msgstr ""
+
+#: client/views.py:453
+msgid "Payment has been successfully created."
+msgstr ""
+
+#: client/views.py:474
+msgid "The payment was updated successfully."
+msgstr ""
+
+#: client/views.py:519
+msgid "Treatment has been successfully created."
+msgstr ""
+
+#: client/views.py:535
+msgid "The treatment was updated successfully."
+msgstr ""
+
+#: client/views.py:596
+msgid "The treatment type was created successfully."
+msgstr ""
+
+#: client/views.py:612
+msgid "The treatment type was updated successfully."
 msgstr ""

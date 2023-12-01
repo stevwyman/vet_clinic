@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-28 16:10+0100\n"
+"POT-Creation-Date: 2023-12-01 15:38+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -277,7 +277,7 @@ msgstr "auf Rechnung"
 msgid "payment type"
 msgstr "Zahlart"
 
-#: client/pdf_invoice.py:240
+#: client/pdf_invoice.py:245
 msgid "greet"
 msgstr "Mit freundlichen Grüßen"
 
@@ -704,6 +704,10 @@ msgstr "Neue Vorlage anlegen"
 msgid "new treatment"
 msgstr "Neue Behandlung anlegen"
 
+#: client/templates/client/thanks.html:7
+msgid "thank you"
+msgstr "Vielen Dank."
+
 #: client/templates/client/treatmenttype_update_form.html:25
 msgid "note for new/update treatment type"
 msgstr ""
@@ -735,6 +739,70 @@ msgstr "Neuer Besuch"
 #: client/templates/client/visittreatment_update_form.html:34
 msgid "gross"
 msgstr "Brutto"
+
+#: client/views.py:111
+msgid "The clinic was updated successfully."
+msgstr "Die Klinik wurde erfolgreich geändert."
+
+#: client/views.py:169 client/views.py:1267
+msgid "The owner was created successfully."
+msgstr "Halter erfolgreich angelegt."
+
+#: client/views.py:199 client/views.py:1363
+msgid "The owner was updated successfully."
+msgstr "Halter erfolgreich geändert."
+
+#: client/views.py:280 client/views.py:1298
+msgid "Pet has been successfully created."
+msgstr "Haustier erfolgreich angelegt"
+
+#: client/views.py:310
+msgid "The pet was updated successfully."
+msgstr "Haustier erfolgreich geändert."
+
+#: client/views.py:339
+msgid "Case has been successfully created."
+msgstr "Fall erfolgreich angelegt."
+
+#: client/views.py:355
+msgid "The case was updated successfully."
+msgstr "Fall erfolgreich geändert."
+
+#: client/views.py:380
+msgid "Visit has been successfully created."
+msgstr "Besuch erfolgreich angelegt."
+
+#: client/views.py:396
+msgid "The visit was updated successfully."
+msgstr "Besuch erfolgreich geändert."
+
+#: client/views.py:426
+msgid "Please use the format: dd.mm.yyyy"
+msgstr "Bitte verwenden Sie für das Datum: dd.mm.yyyy"
+
+#: client/views.py:453
+msgid "Payment has been successfully created."
+msgstr "Zahlung erfolgreich angelegt."
+
+#: client/views.py:474
+msgid "The payment was updated successfully."
+msgstr "Zahlung erfolgreich geändert."
+
+#: client/views.py:519
+msgid "Treatment has been successfully created."
+msgstr "Behandlung erfolgreich engelegt."
+
+#: client/views.py:535
+msgid "The treatment was updated successfully."
+msgstr "Behandlung erfolgreich geändert."
+
+#: client/views.py:596
+msgid "The treatment type was created successfully."
+msgstr "Behandlungsart erfolgreich angelegt."
+
+#: client/views.py:612
+msgid "The treatment type was updated successfully."
+msgstr "Behandlungsart erfolgreich geändert."
 
 #~ msgid "Please provide a phone number for contact"
 #~ msgstr "Bitte geben Sie eine Nummer für den Kontakt an"
