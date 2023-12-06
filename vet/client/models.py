@@ -100,7 +100,6 @@ class Owner(models.Model):
         _("postal city"), max_length=100, null=False, blank=False
     )
 
-
     billing_street_number = models.CharField(
         _("billing street number"), max_length=100, null=True, blank=True
     )
@@ -111,8 +110,9 @@ class Owner(models.Model):
         _("billing city"), max_length=100, null=True, blank=True
     )
 
-
-    mobile = PhoneNumberField(_("mobile"), null=True, blank=True, unique=True, region="DE")
+    mobile = PhoneNumberField(
+        _("mobile"), null=True, blank=True, unique=True, region="DE"
+    )
     fixed = PhoneNumberField(_("fixed"), null=True, blank=True, unique=False)
     email = models.EmailField(
         _("email"), max_length=254, null=True, blank=True, unique=True
@@ -282,7 +282,10 @@ class Pet(models.Model):
             return (
                 today.year
                 - self.birth_date.year
-                - ((today.month, today.day) < (self.birth_date.month, self.birth_date.day))
+                - (
+                    (today.month, today.day)
+                    < (self.birth_date.month, self.birth_date.day)
+                )
             )
         else:
             return "n/a"
@@ -425,12 +428,16 @@ class AbstractPosition(models.Model):
             return self.overwrite_gross_price
         elif self.overwrite_gross_price is None and self.overwrite_net_price is None:
             if self.price_per_unit:
-                return round(self.quantity * self.price_per_unit * (1 + (self.tax / 100)),2)
+                return round(
+                    self.quantity * self.price_per_unit * (1 + (self.tax / 100)), 2
+                )
             else:
-                return round(self.quantity * self.type.price_per_unit * (1 + (self.tax / 100)),2)
+                return round(
+                    self.quantity * self.type.price_per_unit * (1 + (self.tax / 100)), 2
+                )
         else:
             # net price is overwritten
-            return round(self.overwrite_net_price * (1 + (self.tax / 100)),2)
+            return round(self.overwrite_net_price * (1 + (self.tax / 100)), 2)
 
     def included_tax(self):
         return self.gross_price() - self.net_price()
@@ -569,7 +576,7 @@ class Visit(models.Model):
             return self.payment.amount - self.price()
         else:
             return -1 * self.price()
-        
+
     def included_full_tax(self):
         sum = 0
         for t in self.visit_treatments.all():
@@ -670,7 +677,7 @@ class Payment(models.Model):
 def increment_invoice_number():
     last_invoice = Invoice.objects.all().order_by("invoice_no").last()
     if not last_invoice:
-         return "TRW0001"
+        return "TRW0001"
     invoice_no = last_invoice.invoice_no
     invoice_int = int(invoice_no.split("TRW")[-1])
     new_invoice_int = invoice_int + 1
@@ -682,9 +689,17 @@ class Invoice(models.Model):
     # the id for that case
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    visit = models.OneToOneField(Visit, on_delete=models.PROTECT, related_name="invoice")
+    visit = models.OneToOneField(
+        Visit, on_delete=models.PROTECT, related_name="invoice"
+    )
 
-    invoice_no = models.CharField(_("invoice number"), max_length=12, default=increment_invoice_number, null=True, blank=True)
+    invoice_no = models.CharField(
+        _("invoice number"),
+        max_length=12,
+        default=increment_invoice_number,
+        null=True,
+        blank=True,
+    )
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)

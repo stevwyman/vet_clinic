@@ -2,14 +2,31 @@ from django.test import TestCase
 
 from decimal import Decimal
 
-from .models import TreatmentType, MedicationType, ConsumablesType, Template, Invoice, Clinic, TemplateTreatment, Owner, Pet, Visit, Species, Case
+from .models import (
+    TreatmentType,
+    MedicationType,
+    ConsumablesType,
+    Template,
+    Invoice,
+    Clinic,
+    TemplateTreatment,
+    Owner,
+    Pet,
+    Visit,
+    Species,
+    Case,
+)
+
 
 # Create your tests here.
 class AbstractTypes(TestCase):
-
     def test_create_treatment_type(self):
-        treatment_1 = TreatmentType.objects.create(code=1, description="a simple treatment", price_per_unit=12.34 )
-        treatment_2 = TreatmentType.objects.create(code=2, description="another treatment", price_per_unit=56.78 )
+        treatment_1 = TreatmentType.objects.create(
+            code=1, description="a simple treatment", price_per_unit=12.34
+        )
+        treatment_2 = TreatmentType.objects.create(
+            code=2, description="another treatment", price_per_unit=56.78
+        )
 
         self.assertIsNotNone(treatment_1)
         self.assertEqual(treatment_1.code, 1)
@@ -29,8 +46,12 @@ class AbstractTypes(TestCase):
         self.assertEqual(treatment_2_read.price_per_unit, Decimal("56.78"))
 
     def test_create_medication_type(self):
-        medication_1 = MedicationType.objects.create(code=1, description="a simple medication", price_per_unit=12.34 )
-        medication_2 = MedicationType.objects.create(code=2, description="another medication", price_per_unit=56.78 )
+        medication_1 = MedicationType.objects.create(
+            code=1, description="a simple medication", price_per_unit=12.34
+        )
+        medication_2 = MedicationType.objects.create(
+            code=2, description="another medication", price_per_unit=56.78
+        )
 
         self.assertIsNotNone(medication_1)
         self.assertEqual(medication_1.code, 1)
@@ -50,8 +71,12 @@ class AbstractTypes(TestCase):
         self.assertEqual(medication_2_read.price_per_unit, Decimal("56.78"))
 
     def test_create_consumable_type(self):
-        consumable_1 = ConsumablesType.objects.create(code=1, description="a simple consumable", price_per_unit=12.34 )
-        consumable_2 = ConsumablesType.objects.create(code=2, description="another consumable", price_per_unit=56.78 )
+        consumable_1 = ConsumablesType.objects.create(
+            code=1, description="a simple consumable", price_per_unit=12.34
+        )
+        consumable_2 = ConsumablesType.objects.create(
+            code=2, description="another consumable", price_per_unit=56.78
+        )
 
         self.assertIsNotNone(consumable_1)
         self.assertEqual(consumable_1.code, 1)
@@ -70,21 +95,25 @@ class AbstractTypes(TestCase):
         self.assertEqual(consumable_2_read.description, "another consumable")
         self.assertEqual(consumable_2_read.price_per_unit, Decimal("56.78"))
 
+
 class Templates(TestCase):
-
     def setUp(self) -> None:
+        Clinic.objects.create(external_id="abc")
 
-        Clinic.objects.create(external_id = "abc")
-
-        TreatmentType.objects.create(code=1, description="a simple treatment", price_per_unit=12.34 )
-        MedicationType.objects.create(code=1, description="a simple medication", price_per_unit=12.34 )
-        ConsumablesType.objects.create(code=1, description="a simple consumable", price_per_unit=12.34 )
+        TreatmentType.objects.create(
+            code=1, description="a simple treatment", price_per_unit=12.34
+        )
+        MedicationType.objects.create(
+            code=1, description="a simple medication", price_per_unit=12.34
+        )
+        ConsumablesType.objects.create(
+            code=1, description="a simple consumable", price_per_unit=12.34
+        )
 
     def test_create_template(self):
-
-        clinic = Clinic.objects.get(external_id = "abc")
+        clinic = Clinic.objects.get(external_id="abc")
         print(clinic)
-        treatment_type = TreatmentType.objects.get(code = 1)
+        treatment_type = TreatmentType.objects.get(code=1)
         print(treatment_type)
 
         template = Template.objects.create(clinic=clinic)
@@ -95,12 +124,10 @@ class Templates(TestCase):
 
 
 class Invoices(TestCase):
-
     def test_increment(self):
-
         dog = Species.objects.create(name="Dog")
 
-        clinic = Clinic.objects.create(external_id = "abc")
+        clinic = Clinic.objects.create(external_id="abc")
 
         owner = Owner.objects.create(clinic=clinic)
 

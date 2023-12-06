@@ -9,6 +9,7 @@ from django.shortcuts import render
 
 
 from logging import getLogger
+
 logger = getLogger(__name__)
 
 from .models import (
@@ -28,9 +29,7 @@ def initial(request):
     try:
         praxis_weimann = Clinic.objects.get(external_id="clinic001")
     except ObjectDoesNotExist:
-        praxis_weimann = Clinic.objects.create(
-            external_id="clinic001"
-        )
+        praxis_weimann = Clinic.objects.create(external_id="clinic001")
         logger.info(f"Created initial clinic {praxis_weimann.external_id}")
 
     try:
@@ -45,7 +44,6 @@ def initial(request):
         admin.role = 1
         admin.save()
         logger.info(f"Created initial user {admin.username}")
-
 
     try:
         felis = Species.objects.get(name="Katze")
@@ -100,8 +98,8 @@ def initial(request):
             firstname="Max",
             lastname="Mustermann",
             postal_street_number="Musterstraße 1a",
-            postal_zipcode = "22559",
-            postal_city = "Hamburg",
+            postal_zipcode="22559",
+            postal_city="Hamburg",
             confirmed=True,
         )
 
@@ -109,7 +107,11 @@ def initial(request):
         miezi = Pet.objects.get(owner=max_mustermann, call_name="Miezi")
     except ObjectDoesNotExist:
         Pet.objects.create(
-            owner=max_mustermann, call_name="Miezi", birth_date="2020-01-01", sex="&male;", species=felis
+            owner=max_mustermann,
+            call_name="Miezi",
+            birth_date="2020-01-01",
+            sex="&male;",
+            species=felis,
         )
 
     try:

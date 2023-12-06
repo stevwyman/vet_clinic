@@ -105,7 +105,9 @@ class ClinicUpdateView(OTPRequiredMixin, UpdateView):
     template_name_suffix = "_update_form"
 
     def get_success_url(self):
-        return reverse_lazy("home",)
+        return reverse_lazy(
+            "home",
+        )
 
     def form_valid(self, form):
         messages.success(self.request, _("The clinic was updated successfully."))
@@ -124,7 +126,9 @@ class OwnerListView(OTPRequiredMixin, ListView):
         query = self.request.GET.get("q")
         if query:
             object_list = self.model.objects.filter(
-                Q(lastname__icontains=query) & Q(clinic=self.request.user.clinic) & Q(confirmed=True)
+                Q(lastname__icontains=query)
+                & Q(clinic=self.request.user.clinic)
+                & Q(confirmed=True)
             )
         else:
             # object_list = self.model.objects.none() # for better performance
@@ -399,6 +403,7 @@ class VisitUpdateView(OTPRequiredMixin, UpdateView):
 
 from django.utils import timezone
 
+
 @class_view_decorator(never_cache)
 class VisitListView(OTPRequiredMixin, ListView):
     model = Visit
@@ -411,25 +416,26 @@ class VisitListView(OTPRequiredMixin, ListView):
             if query == "all":
                 object_list = self.model.objects.all()
             elif query == "week":
-                #week_start = datetime.now().date()
+                # week_start = datetime.now().date()
                 week_start = timezone.now()
                 week_start -= timezone.timedelta(days=week_start.weekday())
                 week_end = week_start + timezone.timedelta(days=7)
                 object_list = self.model.objects.filter(
-                    timestamp__gte=week_start,
-                    timestamp__lt=week_end
+                    timestamp__gte=week_start, timestamp__lt=week_end
                 )
             else:
                 try:
                     query_date = timezone.datetime.strptime(query, "%d.%m.%Y").date()
                 except ValueError:
-                    messages.warning(self.request, _("Please use the format: dd.mm.yyyy"))
+                    messages.warning(
+                        self.request, _("Please use the format: dd.mm.yyyy")
+                    )
                     return self.model.objects.none()
                 object_list = self.model.objects.filter(timestamp__date=query_date)
         else:
             object_list = self.model.objects.filter(
                 timestamp__date=timezone.now().date()
-            )  
+            )
         return object_list
 
 
@@ -593,7 +599,9 @@ class TreatmentTypeCreateView(OTPRequiredMixin, CreateView):
         return reverse_lazy("treatment-types")
 
     def form_valid(self, form):
-        messages.success(self.request, _("The treatment type was created successfully."))
+        messages.success(
+            self.request, _("The treatment type was created successfully.")
+        )
         return super(TreatmentTypeCreateView, self).form_valid(form)
 
 
@@ -609,7 +617,9 @@ class TreatmentTypeUpdateView(OTPRequiredMixin, UpdateView):
         return reverse_lazy("treatment-types")
 
     def form_valid(self, form):
-        messages.success(self.request, _("The treatment type was updated successfully."))
+        messages.success(
+            self.request, _("The treatment type was updated successfully.")
+        )
         return super(TreatmentTypeUpdateView, self).form_valid(form)
 
 
@@ -1246,9 +1256,10 @@ class CaseDocumentRemoveView(OTPRequiredMixin, DeleteView):
 # Waiting room management
 #
 from .forms import WaitingCustomer
+
+
 # an owner can self-register here, two step approach: first owner, followed by pet
 class OwnerWaitView(CreateView):
-    
     model = Owner
     form_class = WaitingCustomer
 
@@ -1278,7 +1289,7 @@ class PetWaitCreateView(CreateView):
         "species",
         "castrated",
         "sterilized",
-        "note"
+        "note",
     ]
 
     template_name = "client/waiting_room_register.html"
@@ -1306,7 +1317,7 @@ class Registration_Thank(TemplateView):
         context = super(Registration_Thank, self).get_context_data(**kwargs)
         context["pet"] = get_object_or_404(Pet, pk=self.kwargs["pk"])
         return context
-                                                
+
 
 # owner that have the flag confirmed set to false, as they have registered them selfs
 class WaitingRoomListView(OTPRequiredMixin, ListView):
@@ -1322,7 +1333,9 @@ class WaitingRoomListView(OTPRequiredMixin, ListView):
         query = self.request.GET.get("q")
         if query:
             object_list = self.model.objects.filter(
-                Q(lastname__icontains=query) & Q(clinic=self.request.user.clinic) & Q(confirmed=False)
+                Q(lastname__icontains=query)
+                & Q(clinic=self.request.user.clinic)
+                & Q(confirmed=False)
             )
         else:
             # object_list = self.model.objects.none() # for better performance
@@ -1453,14 +1466,15 @@ def fit(request, visit_id):
     if first_treatment is None or rest == 0:
         messages.warning(request, "Nothing to adjust")
     else:
-
         # special case if the net price has been overwritten
         # then we need to do the calculation based on that
         if first_treatment.overwrite_net_price:
             original_price = first_treatment.gross_price()
             net_price = first_treatment.overwrite_net_price
 
-            first_treatment.overwrite_net_price = net_price - rest / (1 + first_treatment.tax / 100)
+            first_treatment.overwrite_net_price = net_price - rest / (
+                1 + first_treatment.tax / 100
+            )
             first_treatment.save(update_fields=["overwrite_net_price"])
 
             pass
@@ -1544,7 +1558,7 @@ def generate_advanced_invoice(request, visit_id):
                 ),
                 "address": visit.case.pet.owner.lastname,
                 "text": visit.title,
-                "invoice": invoice_no
+                "invoice": invoice_no,
             }
         )
 

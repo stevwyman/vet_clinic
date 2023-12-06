@@ -3,16 +3,16 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.deprecation import MiddlewareMixin
 
+
 class GatedContent(MiddlewareMixin):
     """
-    Prevents specific content directories and types 
+    Prevents specific content directories and types
     from being exposed to non-authenticated users
     """
 
     def process_request(self, request):
-
         path = request.path
-        user = request.user # out of the box auth, YMMV
+        user = request.user  # out of the box auth, YMMV
 
         is_gated = False
         for gated in settings.GATED_CONTENT:
@@ -24,4 +24,3 @@ class GatedContent(MiddlewareMixin):
         if is_gated and not user.is_authenticated:
             # Handle redirect
             return HttpResponseRedirect(reverse("home"))
-        

@@ -161,7 +161,9 @@ class InvoiceDocument(FPDF):
                 ln=1,
             )
         else:
-            self.cell(0, 6, txt="{} {}".format(_("invoice number"), invoice.invoice_no), ln=1)
+            self.cell(
+                0, 6, txt="{} {}".format(_("invoice number"), invoice.invoice_no), ln=1
+            )
         self.cell(0, 12, txt="{}".format(""), ln=1, border=BORDER)
 
         self.set_font(family=TEXT_BODY, size=10)
